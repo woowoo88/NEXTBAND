@@ -9,14 +9,14 @@
         </Grid.RowDefinitions>
         <Border Background="{StaticResource BrandGradient}" Padding="20,30">
             <DockPanel>
-                <Button Content="‹" Command="{Binding BackCommand}" Style="{StaticResource LinkButton}" Foreground="White" FontSize="28" DockPanel.Dock="Left" />
+                <Button Content="&lt;" Command="{Binding BackCommand}" Style="{StaticResource LinkButton}" Foreground="White" FontSize="22" Width="44" DockPanel.Dock="Left" />
                 <TextBlock Text="Editar Perfil" Style="{StaticResource PageTitle}" Margin="10,0,0,0" />
             </DockPanel>
         </Border>
         <ScrollViewer Grid.RowSpan="2" Margin="16,84,16,0" VerticalScrollBarVisibility="Auto">
             <Border Style="{StaticResource Card}">
                 <StackPanel>
-                    <Border Width="96" Height="96" CornerRadius="48" Background="{StaticResource BrandGradient}" HorizontalAlignment="Center" Margin="0,-46,0,8">
+                    <Border Width="96" Height="96" CornerRadius="48" Background="{StaticResource BrandGradient}" HorizontalAlignment="Center" Margin="0,8,0,8">
                         <TextBlock Text="P" Foreground="White" FontSize="42" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" />
                     </Border>
                     <TextBlock Text="Toque para alterar a foto" HorizontalAlignment="Center" Foreground="{StaticResource MutedBrush}" Margin="0,0,0,24" />

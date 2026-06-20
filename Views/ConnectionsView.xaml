@@ -9,7 +9,7 @@
         <Border Background="{StaticResource BrandGradient}" Padding="20,30,20,24">
             <StackPanel>
                 <DockPanel Margin="0,0,0,18">
-                    <Button Content="‹" Command="{Binding BackCommand}" Style="{StaticResource LinkButton}" Foreground="White" FontSize="28" DockPanel.Dock="Left" />
+                    <Button Content="&lt;" Command="{Binding BackCommand}" Style="{StaticResource LinkButton}" Foreground="White" FontSize="22" Width="44" DockPanel.Dock="Left" />
                     <TextBlock Text="Conexoes" Style="{StaticResource PageTitle}" Margin="10,0,0,0" />
                 </DockPanel>
                 <TextBox Text="{Binding ConnectionSearch, UpdateSourceTrigger=PropertyChanged}" Height="40" />

@@ -9,7 +9,7 @@
         </Grid.RowDefinitions>
         <Border Background="{StaticResource BrandGradient}" Padding="20,0">
             <DockPanel>
-                <Button Content="‹" Command="{Binding BackCommand}" Style="{StaticResource LinkButton}" Foreground="White" FontSize="28" DockPanel.Dock="Left" />
+                <Button Content="&lt;" Command="{Binding BackCommand}" Style="{StaticResource LinkButton}" Foreground="White" FontSize="22" Width="44" DockPanel.Dock="Left" />
                 <TextBlock Text="My Band" Style="{StaticResource PageTitle}" Margin="10,0,0,0" />
             </DockPanel>
         </Border>
@@ -33,62 +33,10 @@
 
                 <Border Style="{StaticResource FlatCard}" Margin="0,0,0,16">
                     <StackPanel>
-                        <TextBlock Text="Preview da pulseira" FontWeight="SemiBold" Margin="0,0,0,10" />
-                        <Grid Height="150">
-                            <Border Width="220" Height="118" CornerRadius="28" Background="#1F2937" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <Border.Effect>
-                                    <DropShadowEffect Color="#3B82F6" BlurRadius="28" ShadowDepth="0" Opacity="0.45" />
-                                </Border.Effect>
-                                <Border Margin="18" CornerRadius="12" Background="#353A44">
-                                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                                        <TextBlock Text="NextBand" Foreground="#BFC5D1" FontWeight="SemiBold" HorizontalAlignment="Center" />
-                                        <TextBlock Text="{Binding Data.Band.OledText}" Foreground="White" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center" Margin="0,6" />
-                                        <TextBlock Text="NFC OK" Foreground="#D7DBE4" FontSize="12" HorizontalAlignment="Center" />
-                                    </StackPanel>
-                                </Border>
-                            </Border>
-                        </Grid>
-                    </StackPanel>
-                </Border>
-
-                <Border Style="{StaticResource FlatCard}" Margin="0,0,0,16">
-                    <StackPanel>
-                        <DockPanel Margin="0,0,0,14">
-                            <TextBlock Text="LED RGB" FontWeight="SemiBold" DockPanel.Dock="Left" />
-                            <CheckBox IsChecked="{Binding Data.Band.LedEnabled}" Style="{StaticResource ToggleCheckBox}" HorizontalAlignment="Right" />
-                        </DockPanel>
-                        <TextBlock Text="Selecione a cor" Style="{StaticResource MutedText}" Margin="0,0,0,12" />
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="72" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="58" />
-                            </Grid.ColumnDefinitions>
-                            <Ellipse Width="52" Height="52" Fill="{Binding LedColorPreview}" Stroke="{StaticResource LineBrush}" StrokeThickness="1" />
-                            <StackPanel Grid.Column="1" Margin="12,0">
-                                <TextBlock Text="Codigo HEX" Style="{StaticResource MutedText}" />
-                                <TextBox Text="{Binding Data.Band.LedHexColor, UpdateSourceTrigger=PropertyChanged}" />
-                            </StackPanel>
-                            <Ellipse Grid.Column="2" Width="38" Height="38" Fill="{Binding LedColorPreview}" VerticalAlignment="Bottom" />
-                        </Grid>
-                    </StackPanel>
-                </Border>
-
-                <Border Style="{StaticResource FlatCard}" Margin="0,0,0,16">
-                    <StackPanel>
-                        <TextBlock Text="Display OLED" FontWeight="SemiBold" Margin="0,0,0,10" />
-                        <TextBlock Text="Texto exibido no display da pulseira" Style="{StaticResource MutedText}" Margin="0,0,0,8" />
-                        <TextBox Text="{Binding Data.Band.OledText, UpdateSourceTrigger=PropertyChanged}" MaxLength="20" />
-                        <TextBlock Text="{Binding OledCounterText}" HorizontalAlignment="Right" Foreground="{StaticResource MutedBrush}" Margin="0,5,0,0" />
-                    </StackPanel>
-                </Border>
-
-                <Border Style="{StaticResource FlatCard}" Margin="0,0,0,16">
-                    <StackPanel>
                         <TextBlock Text="URL personalizada" FontWeight="SemiBold" Margin="0,0,0,8" />
                         <TextBlock Text="Crie a pagina acessivel via NFC ou link com informacoes essenciais da crianca." Style="{StaticResource MutedText}" Margin="0,0,0,14" />
                         <Button Command="{Binding NavigateCommand}" CommandParameter="{x:Static services:AppPage.CustomUrl}" Style="{StaticResource PrimaryButton}">
-                            <TextBlock Text="URL personalizada    Configurar pagina de emergencia    ›" />
+                            <TextBlock Text="URL personalizada    Configurar pagina de emergencia    &gt;" />
                         </Button>
                     </StackPanel>
                 </Border>
