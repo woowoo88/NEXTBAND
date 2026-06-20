@@ -1,0 +1,137 @@
+<UserControl x:Class="NextBand.Views.CustomUrlView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="98" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Border Background="{StaticResource BrandGradient}" Padding="20,0">
+            <DockPanel>
+                <Button Content="‹" Command="{Binding BackCommand}" Style="{StaticResource LinkButton}" Foreground="White" FontSize="28" DockPanel.Dock="Left" />
+                <StackPanel VerticalAlignment="Center" Margin="10,0,0,0">
+                    <TextBlock Text="URL personalizada" Style="{StaticResource PageTitle}" />
+                    <TextBlock Text="Pagina acessivel via NFC ou link" Foreground="#E9E7FF" />
+                </StackPanel>
+            </DockPanel>
+        </Border>
+
+        <ScrollViewer Grid.Row="1" Margin="16" VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <Border Style="{StaticResource FlatCard}" Margin="0,0,0,16">
+                    <StackPanel>
+                        <TextBlock Text="Privacidade" FontWeight="SemiBold" Margin="0,0,0,8" />
+                        <TextBlock Text="Os dados ficam armazenados neste dispositivo. Compartilhe o link apenas com pessoas de confianca ou via NFC da pulseira em situacoes de emergencia." Foreground="{StaticResource MutedBrush}" />
+                    </StackPanel>
+                </Border>
+
+                <Border Style="{StaticResource FlatCard}" Margin="0,0,0,16">
+                    <StackPanel>
+                        <TextBlock Text="Identificacao" FontWeight="SemiBold" FontSize="16" Margin="0,0,0,16" />
+                        <TextBlock Text="Nome da crianca *" Style="{StaticResource LabelText}" />
+                        <TextBox Text="{Binding Data.EmergencyProfile.ChildName, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,18" />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="12" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <StackPanel>
+                                <TextBlock Text="Idade" Style="{StaticResource LabelText}" />
+                                <TextBox Text="{Binding Data.EmergencyProfile.Age, UpdateSourceTrigger=PropertyChanged}" />
+                            </StackPanel>
+                            <StackPanel Grid.Column="2">
+                                <TextBlock Text="Tipo sanguineo" Style="{StaticResource LabelText}" />
+                                <TextBox Text="{Binding Data.EmergencyProfile.BloodType, UpdateSourceTrigger=PropertyChanged}" />
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <Border Style="{StaticResource FlatCard}" Margin="0,0,0,16">
+                    <StackPanel>
+                        <TextBlock Text="Responsaveis e contato" FontWeight="SemiBold" FontSize="16" Margin="0,0,0,16" />
+                        <TextBlock Text="Nome dos responsaveis" Style="{StaticResource LabelText}" />
+                        <TextBox Text="{Binding Data.EmergencyProfile.Guardians, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,18" />
+                        <TextBlock Text="Telefone principal de emergencia" Style="{StaticResource LabelText}" />
+                        <TextBox Text="{Binding Data.EmergencyProfile.MainPhone, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,18" />
+                        <TextBlock Text="Endereco" Style="{StaticResource LabelText}" />
+                        <TextBox Text="{Binding Data.EmergencyProfile.Address, UpdateSourceTrigger=PropertyChanged}" Height="62" AcceptsReturn="True" TextWrapping="Wrap" VerticalContentAlignment="Top" />
+                    </StackPanel>
+                </Border>
+
+                <Border Style="{StaticResource FlatCard}" Margin="0,0,0,16">
+                    <StackPanel>
+                        <TextBlock Text="Saude" FontWeight="SemiBold" FontSize="16" Margin="0,0,0,16" />
+                        <TextBlock Text="Alergias" Style="{StaticResource LabelText}" />
+                        <TextBox Text="{Binding Data.EmergencyProfile.Allergies, UpdateSourceTrigger=PropertyChanged}" Height="62" AcceptsReturn="True" TextWrapping="Wrap" VerticalContentAlignment="Top" Margin="0,0,0,18" />
+                        <TextBlock Text="Condicoes medicas" Style="{StaticResource LabelText}" />
+                        <TextBox Text="{Binding Data.EmergencyProfile.MedicalConditions, UpdateSourceTrigger=PropertyChanged}" Height="62" AcceptsReturn="True" TextWrapping="Wrap" VerticalContentAlignment="Top" Margin="0,0,0,18" />
+                        <TextBlock Text="Deficiencias" Style="{StaticResource LabelText}" />
+                        <TextBox Text="{Binding Data.EmergencyProfile.Disabilities, UpdateSourceTrigger=PropertyChanged}" Height="62" AcceptsReturn="True" TextWrapping="Wrap" VerticalContentAlignment="Top" Margin="0,0,0,18" />
+                        <TextBlock Text="Necessidades especiais" Style="{StaticResource LabelText}" />
+                        <TextBox Text="{Binding Data.EmergencyProfile.SpecialNeeds, UpdateSourceTrigger=PropertyChanged}" Height="62" AcceptsReturn="True" TextWrapping="Wrap" VerticalContentAlignment="Top" Margin="0,0,0,18" />
+                        <TextBlock Text="Medicamentos em uso" Style="{StaticResource LabelText}" />
+                        <TextBox Text="{Binding Data.EmergencyProfile.Medications, UpdateSourceTrigger=PropertyChanged}" Height="62" AcceptsReturn="True" TextWrapping="Wrap" VerticalContentAlignment="Top" Margin="0,0,0,18" />
+                        <TextBlock Text="Instrucoes para emergencia" Style="{StaticResource LabelText}" />
+                        <TextBox Text="{Binding Data.EmergencyProfile.EmergencyInstructions, UpdateSourceTrigger=PropertyChanged}" Height="82" AcceptsReturn="True" TextWrapping="Wrap" VerticalContentAlignment="Top" />
+                    </StackPanel>
+                </Border>
+
+                <Border Style="{StaticResource FlatCard}" Margin="0,0,0,16">
+                    <StackPanel>
+                        <TextBlock Text="Contatos de emergencia adicionais" FontWeight="SemiBold" FontSize="16" />
+                        <TextBlock Text="Adicione contatos extras de familiares ou pessoas de confianca." Style="{StaticResource MutedText}" Margin="0,8,0,14" />
+                        <ItemsControl ItemsSource="{Binding Data.EmergencyProfile.ExtraContacts}" Margin="0,0,0,12">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Background="{StaticResource SoftBrush}" CornerRadius="6" Padding="12" Margin="0,0,0,8">
+                                        <TextBlock>
+                                            <Run Text="{Binding Name}" FontWeight="SemiBold" />
+                                            <Run Text=" - " />
+                                            <Run Text="{Binding Relation}" />
+                                            <Run Text=" - " />
+                                            <Run Text="{Binding Phone}" />
+                                        </TextBlock>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                        <Button Content="+ Adicionar contato" Command="{Binding AddEmergencyContactCommand}" Style="{StaticResource SecondaryButton}" />
+                    </StackPanel>
+                </Border>
+
+                <Border Style="{StaticResource FlatCard}" Margin="0,0,0,16">
+                    <StackPanel>
+                        <TextBlock Text="Outras informacoes" FontWeight="SemiBold" FontSize="16" />
+                        <TextBlock Text="Adicione qualquer informacao adicional relevante, ex: plano de saude, escola, pediatra." Style="{StaticResource MutedText}" Margin="0,8,0,14" />
+                        <ItemsControl ItemsSource="{Binding Data.EmergencyProfile.CustomInfos}" Margin="0,0,0,12">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Background="{StaticResource SoftBrush}" CornerRadius="6" Padding="12" Margin="0,0,0,8">
+                                        <TextBlock>
+                                            <Run Text="{Binding Title}" FontWeight="SemiBold" />
+                                            <Run Text=": " />
+                                            <Run Text="{Binding Description}" />
+                                        </TextBlock>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                        <Button Content="+ Adicionar informacao" Command="{Binding AddCustomInfoCommand}" Style="{StaticResource SecondaryButton}" />
+                    </StackPanel>
+                </Border>
+
+                <Grid Margin="0,4,0,30">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="12" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Button Content="Visualizar" Command="{Binding PreviewEmergencyCommand}" Style="{StaticResource SecondaryButton}" />
+                    <Button Grid.Column="2" Content="Salvar" Command="{Binding SaveEmergencyCommand}" Style="{StaticResource PrimaryButton}" />
+                </Grid>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>
