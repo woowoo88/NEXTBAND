@@ -1,6 +1,6 @@
 # NextBand
 
-Aplicativo desktop desenvolvido em C# WPF para configuração de uma pulseira inteligente com NFC, Bluetooth, ESP32, LED RGB e display OLED.
+Aplicativo desktop desenvolvido em C# WPF para configuração de uma pulseira inteligente com NFC, Bluetooth e ESP32.
 
 ## Funcionalidades
 
@@ -17,7 +17,7 @@ Aplicativo desktop desenvolvido em C# WPF para configuração de uma pulseira in
 - Página pública de emergência infantil
 - Modo criança
 - Controle de permissões
-- Armazenamento em banco SQL Server compartilhado
+- Armazenamento local em JSON
 
 ## Tecnologias utilizadas
 
@@ -25,40 +25,24 @@ Aplicativo desktop desenvolvido em C# WPF para configuração de uma pulseira in
 - WPF
 - XAML
 - MVVM
-- SQL Server remoto/compartilhado
-- Microsoft.Data.SqlClient
-- Hash PBKDF2 com salt para senhas
+- JSON com `System.Text.Json`
 - Serviços preparados para Bluetooth, NFC e ESP32
 
-## Banco de dados
+## Armazenamento
 
-O app não armazena informações pessoais em JSON, TXT, XML ou banco local do computador. Todos os dados persistentes usam SQL Server via connection string configurada em:
+O app salva os dados localmente em JSON no caminho:
 
-```powershell
-$env:NEXTBAND_SQL_CONNECTION="Server=SEU_SERVIDOR;Database=NextBand;User Id=SEU_USUARIO;Password=SUA_SENHA;TrustServerCertificate=True;"
+```text
+%AppData%\NextBand\nextband-data.json
 ```
 
-Todos os computadores que usarem a mesma connection string acessam o mesmo banco.
-
-Na primeira execução, o aplicativo cria automaticamente as tabelas necessárias:
-
-- `Users`
-- `UserProfiles`
-- `BandDevices`
-- `Connections`
-- `EmergencyProfiles`
-- `EmergencyContacts`
-- `AdditionalInformation`
-- `AppSettings`
-
-As senhas são salvas apenas como `PasswordHash` e `PasswordSalt`.
+O login usa o e-mail e a senha salvos nesse arquivo.
 
 ## Como executar
 
-1. Configurar `NEXTBAND_SQL_CONNECTION`.
-2. Abrir o projeto no Visual Studio.
-3. Restaurar dependências.
-4. Compilar e executar.
+1. Abrir o projeto no Visual Studio.
+2. Restaurar dependências.
+3. Compilar e executar.
 
 Ou pelo terminal:
 
@@ -72,7 +56,7 @@ dotnet run
 - `Views`: telas XAML do aplicativo.
 - `ViewModels`: comandos, estado e navegação MVVM.
 - `Models`: dados de usuário, conexões, pulseira e emergência.
-- `Services`: banco SQL compartilhado, validação, NFC e Bluetooth simulado.
+- `Services`: armazenamento JSON, validação, NFC e Bluetooth simulado.
 - `Components`: auxiliares reutilizáveis de interface.
 - `Assets`: pasta reservada para ícones, imagens e estilos.
 
