@@ -9,17 +9,15 @@ Aplicativo desktop desenvolvido em C# WPF para configuração de uma pulseira in
 - Compartilhamento de perfil via NFC
 - Registro de conexões recentes
 - Tela de conexões com busca
-- Edicao de perfil
-- Configuracao da pulseira NextBand
-- Conexao Bluetooth simulada com ESP32
-- Controle de LED RGB
-- Configuracao do texto do display OLED
-- Link rapido para Instagram, LinkedIn ou URL
+- Edição de perfil
+- Configuração da pulseira NextBand
+- Conexão Bluetooth simulada com ESP32
+- Link rápido para Instagram, LinkedIn ou URL
 - URL personalizada de emergência
 - Página pública de emergência infantil
 - Modo criança
-- Controle de permissoes
-- Armazenamento local em JSON
+- Controle de permissões
+- Armazenamento em banco SQL Server compartilhado
 
 ## Tecnologias utilizadas
 
@@ -27,22 +25,40 @@ Aplicativo desktop desenvolvido em C# WPF para configuração de uma pulseira in
 - WPF
 - XAML
 - MVVM
-- JSON para armazenamento local
-- Servicos preparados para Bluetooth, NFC e ESP32
+- SQL Server remoto/compartilhado
+- Microsoft.Data.SqlClient
+- Hash PBKDF2 com salt para senhas
+- Serviços preparados para Bluetooth, NFC e ESP32
+
+## Banco de dados
+
+O app não armazena informações pessoais em JSON, TXT, XML ou banco local do computador. Todos os dados persistentes usam SQL Server via connection string configurada em:
+
+```powershell
+$env:NEXTBAND_SQL_CONNECTION="Server=SEU_SERVIDOR;Database=NextBand;User Id=SEU_USUARIO;Password=SUA_SENHA;TrustServerCertificate=True;"
+```
+
+Todos os computadores que usarem a mesma connection string acessam o mesmo banco.
+
+Na primeira execução, o aplicativo cria automaticamente as tabelas necessárias:
+
+- `Users`
+- `UserProfiles`
+- `BandDevices`
+- `Connections`
+- `EmergencyProfiles`
+- `EmergencyContacts`
+- `AdditionalInformation`
+- `AppSettings`
+
+As senhas são salvas apenas como `PasswordHash` e `PasswordSalt`.
 
 ## Como executar
 
-1. Clonar o repositorio:
-
-```bash
-git clone https://github.com/woowoo88/NEXTBAND.git
-```
-
+1. Configurar `NEXTBAND_SQL_CONNECTION`.
 2. Abrir o projeto no Visual Studio.
-
-3. Restaurar dependencias.
-
-4. Compilar e executar o projeto.
+3. Restaurar dependências.
+4. Compilar e executar.
 
 Ou pelo terminal:
 
@@ -54,12 +70,12 @@ dotnet run
 ## Estrutura do projeto
 
 - `Views`: telas XAML do aplicativo.
-- `ViewModels`: comandos, estado e navegacao MVVM.
+- `ViewModels`: comandos, estado e navegação MVVM.
 - `Models`: dados de usuário, conexões, pulseira e emergência.
-- `Services`: armazenamento local, validacao, NFC e Bluetooth simulado.
-- `Components`: auxiliares reutilizaveis de interface.
-- `Assets`: pasta reservada para icones, imagens e estilos.
+- `Services`: banco SQL compartilhado, validação, NFC e Bluetooth simulado.
+- `Components`: auxiliares reutilizáveis de interface.
+- `Assets`: pasta reservada para ícones, imagens e estilos.
 
-## Observacoes
+## Observações
 
-A integracao Bluetooth/NFC esta simulada para permitir o fluxo completo do aplicativo sem hardware conectado. Os servicos `BluetoothService` e `NfcService` concentram os pontos de troca para APIs reais do ESP32 e NFC.
+A integração Bluetooth/NFC está simulada para permitir o fluxo completo do aplicativo sem hardware conectado. Os serviços `BluetoothService` e `NfcService` concentram os pontos de troca para APIs reais do ESP32 e NFC.

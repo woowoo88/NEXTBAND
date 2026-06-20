@@ -4,18 +4,18 @@ namespace NextBand.Models;
 
 public sealed class EmergencyProfileModel : ObservableModel
 {
-    private string _childName = "Maria Silva";
-    private string _age = "7";
-    private string _bloodType = "O+";
-    private string _guardians = "Ana Silva e Joao Santos";
-    private string _mainPhone = "(11) 123456789";
-    private string _address = "ali mesmo que vc ta pensando";
-    private string _allergies = "Amendoim";
-    private string _medicalConditions = "Asma";
-    private string _disabilities = "Síndrome de Down";
-    private string _specialNeeds = "Atenção Especial";
+    private string _childName = string.Empty;
+    private string _age = string.Empty;
+    private string _bloodType = string.Empty;
+    private string _guardians = string.Empty;
+    private string _mainPhone = string.Empty;
+    private string _address = string.Empty;
+    private string _allergies = string.Empty;
+    private string _medicalConditions = string.Empty;
+    private string _disabilities = string.Empty;
+    private string _specialNeeds = string.Empty;
     private string _medications = string.Empty;
-    private string _emergencyInstructions = "Em caso de crise, usar inalador. Levar ao hospital mais próximo.";
+    private string _emergencyInstructions = string.Empty;
 
     public string ChildName { get => _childName; set => SetProperty(ref _childName, value); }
     public string Age { get => _age; set => SetProperty(ref _age, value); }

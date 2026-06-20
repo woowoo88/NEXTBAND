@@ -2,16 +2,16 @@ namespace NextBand.Models;
 
 public sealed class UserModel : ObservableModel
 {
-    private string _fullName = "Lucas Mendes";
-    private string _userName = "lucasmendes";
-    private string _phone = "(11) 99999-9999";
-    private string _email = "lucas@email.com";
-    private string _password = "123456";
-    private string _instagram = "@lucasmendes";
-    private string _linkedIn = "linkedin.com/in/lucasmendes";
+    private string _fullName = string.Empty;
+    private string _userName = string.Empty;
+    private string _phone = string.Empty;
+    private string _email = string.Empty;
+    private string _password = string.Empty;
+    private string _instagram = string.Empty;
+    private string _linkedIn = string.Empty;
     private string _affiliation = string.Empty;
-    private string _age = "25";
-    private string _bio = "Desenvolvedor Full Stack apaixonado por tecnologia, networking e inovação. Sempre em busca de novas conexões.";
+    private string _age = string.Empty;
+    private string _bio = string.Empty;
 
     public string FullName { get => _fullName; set => SetProperty(ref _fullName, value); }
     public string UserName { get => _userName; set => SetProperty(ref _userName, value); }

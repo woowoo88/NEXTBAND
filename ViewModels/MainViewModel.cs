@@ -35,7 +35,7 @@ public sealed class MainViewModel : ViewModelBase
         _selectedDialCode = CountryDialCodes[0];
         NavigateCommand = new RelayCommand(page => NavigateTo((AppPage)page!));
         BackCommand = new RelayCommand(GoBack);
-        LoginCommand = new RelayCommand(Login);
+        LoginCommand = new RelayCommand(async () => await LoginAsync());
         RegisterCommand = new RelayCommand(Register);
         SaveProfileCommand = new RelayCommand(async () => await SaveProfileAsync());
         ShareProfileCommand = new RelayCommand(ShareProfile);
@@ -226,11 +226,7 @@ public sealed class MainViewModel : ViewModelBase
     private async Task LoadAsync()
     {
         Data = await _storageService.LoadAsync();
-        if (string.IsNullOrWhiteSpace(Data.User.Password))
-        {
-            Data.User.Password = "123456";
-        }
-
+        await _storageService.DeleteLegacyLocalFileAsync();
         WireDataNotifications();
         RefreshAll();
     }
@@ -288,7 +284,7 @@ public sealed class MainViewModel : ViewModelBase
         };
     }
 
-    private void Login()
+    private async Task LoginAsync()
     {
         if (!_validationService.IsEmail(LoginEmail) || string.IsNullOrWhiteSpace(LoginPassword))
         {
@@ -296,15 +292,26 @@ public sealed class MainViewModel : ViewModelBase
             return;
         }
 
-        var emailMatches = string.Equals(LoginEmail.Trim(), Data.User.Email.Trim(), StringComparison.OrdinalIgnoreCase);
-        var passwordMatches = LoginPassword == Data.User.Password;
+        AppDataModel? loadedData;
+        try
+        {
+            loadedData = await _storageService.LoadByLoginAsync(LoginEmail, LoginPassword);
+        }
+        catch (Exception ex)
+        {
+            SetStatus(ex.Message, true);
+            return;
+        }
 
-        if (!emailMatches || !passwordMatches)
+        if (loadedData is null)
         {
             SetStatus("E-mail ou senha incorretos. Confira os dados e tente novamente.", true);
             return;
         }
 
+        Data = loadedData;
+        WireDataNotifications();
+        RefreshAll();
         CurrentPage = AppPage.Dashboard;
         SetStatus("Login realizado com sucesso.");
     }
@@ -344,7 +351,16 @@ public sealed class MainViewModel : ViewModelBase
         Data = CreateCleanAccountData();
         WireDataNotifications();
         RefreshAll();
-        await _storageService.SaveAsync(Data);
+        try
+        {
+            await _storageService.SaveAsync(Data);
+        }
+        catch (Exception ex)
+        {
+            SetStatus(ex.Message, true);
+            return;
+        }
+
         CurrentPage = AppPage.Dashboard;
         SetStatus("Conta criada com sucesso.");
     }
@@ -359,7 +375,16 @@ public sealed class MainViewModel : ViewModelBase
 
         Data.User.UserName = Data.User.UserName.TrimStart('@');
         Data.Band.OledText = $"@{Data.User.UserName}";
-        await _storageService.SaveAsync(Data);
+        try
+        {
+            await _storageService.SaveAsync(Data);
+        }
+        catch (Exception ex)
+        {
+            SetStatus(ex.Message, true);
+            return;
+        }
+
         SetStatus("Perfil atualizado com sucesso.");
         CurrentPage = AppPage.Profile;
     }
@@ -391,13 +416,31 @@ public sealed class MainViewModel : ViewModelBase
     {
         if (!Data.Band.IsConnected)
         {
-            await _storageService.SaveAsync(Data);
+            try
+            {
+                await _storageService.SaveAsync(Data);
+            }
+            catch (Exception ex)
+            {
+                SetStatus(ex.Message, true);
+                return;
+            }
+
             SetStatus("Configuracao salva para sincronizar depois.");
             return;
         }
 
         await _bluetoothService.SendAsync($"{Data.Band.OledText}|{Data.Band.LedHexColor}|{Data.Band.QuickLink}");
-        await _storageService.SaveAsync(Data);
+        try
+        {
+            await _storageService.SaveAsync(Data);
+        }
+        catch (Exception ex)
+        {
+            SetStatus(ex.Message, true);
+            return;
+        }
+
         SetStatus("Dados enviados para a pulseira.");
     }
 
@@ -415,7 +458,16 @@ public sealed class MainViewModel : ViewModelBase
             return;
         }
 
-        await _storageService.SaveAsync(Data);
+        try
+        {
+            await _storageService.SaveAsync(Data);
+        }
+        catch (Exception ex)
+        {
+            SetStatus(ex.Message, true);
+            return;
+        }
+
         SetStatus("Informações de emergência salvas.");
         OnPropertyChanged(nameof(EmergencyUrl));
     }
