@@ -20,9 +20,20 @@
                     </Grid.ColumnDefinitions>
                     <ComboBox ItemsSource="{Binding CountryDialCodes}"
                               SelectedItem="{Binding SelectedDialCode}"
-                              DisplayMemberPath="DisplayName"
-                              Height="42"
-                              VerticalContentAlignment="Center" />
+                              Style="{StaticResource ModernComboBox}"
+                              ItemContainerStyle="{StaticResource ModernComboBoxItem}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <Border Width="30" Height="24" CornerRadius="5" Background="#EEF2FF" Margin="0,0,8,0">
+                                        <TextBlock Text="{Binding Flag}" FontSize="12" FontWeight="Bold" Foreground="{StaticResource BlueBrush}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    </Border>
+                                    <TextBlock Text="{Binding Name}" Foreground="{StaticResource InkBrush}" VerticalAlignment="Center" />
+                                    <TextBlock Text="{Binding DialCode}" Foreground="{StaticResource MutedBrush}" FontWeight="SemiBold" Margin="6,0,0,0" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
                     <TextBox Grid.Column="2" Text="{Binding RegisterPhone, UpdateSourceTrigger=PropertyChanged}" />
                 </Grid>
                 <TextBlock Text="Email" Style="{StaticResource LabelText}" />
