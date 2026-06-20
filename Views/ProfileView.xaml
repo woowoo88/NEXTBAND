@@ -1,0 +1,40 @@
+<UserControl x:Class="NextBand.Views.ProfileView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:services="clr-namespace:NextBand.Services">
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="140" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Border Background="{StaticResource BrandGradient}" Padding="20,30">
+            <DockPanel>
+                <Button Content="‹" Command="{Binding BackCommand}" Style="{StaticResource LinkButton}" Foreground="White" FontSize="28" DockPanel.Dock="Left" />
+                <TextBlock Text="Meu Perfil" Style="{StaticResource PageTitle}" Margin="10,0,0,0" />
+            </DockPanel>
+        </Border>
+        <ScrollViewer Grid.RowSpan="2" Margin="16,86,16,0">
+            <Border Style="{StaticResource Card}">
+                <StackPanel HorizontalAlignment="Stretch">
+                    <Border Width="96" Height="96" CornerRadius="48" Background="{StaticResource BrandGradient}" HorizontalAlignment="Center" Margin="0,-46,0,16">
+                        <Grid>
+                            <TextBlock Text="P" Foreground="White" FontSize="42" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            <Border Width="28" Height="28" CornerRadius="14" Background="{StaticResource BlueBrush}" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                                <TextBlock Text="C" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="11" />
+                            </Border>
+                        </Grid>
+                    </Border>
+                    <TextBlock Text="{Binding Data.User.FullName}" HorizontalAlignment="Center" FontSize="22" FontWeight="Bold" />
+                    <TextBlock Text="{Binding Data.User.UserName, StringFormat=@{0}}" HorizontalAlignment="Center" Foreground="{StaticResource MutedBrush}" Margin="0,4,0,18" />
+                    <Border Background="{StaticResource SoftBrush}" CornerRadius="6" Padding="18" Margin="0,0,0,18">
+                        <TextBlock Text="{Binding Data.User.Bio}" Foreground="{StaticResource MutedBrush}" TextAlignment="Center" />
+                    </Border>
+                    <TextBlock Text="{Binding Data.User.Instagram}" HorizontalAlignment="Center" Foreground="{StaticResource MutedBrush}" Margin="0,0,0,10" />
+                    <TextBlock Text="{Binding Data.User.LinkedIn}" HorizontalAlignment="Center" Foreground="{StaticResource MutedBrush}" Margin="0,0,0,24" />
+                    <Button Content="Editar perfil" Command="{Binding NavigateCommand}" CommandParameter="{x:Static services:AppPage.EditProfile}" Style="{StaticResource SecondaryButton}" Margin="0,0,0,12" />
+                    <Button Content="Compartilhar via NFC" Command="{Binding ShareProfileCommand}" Style="{StaticResource PrimaryButton}" />
+                </StackPanel>
+            </Border>
+        </ScrollViewer>
+    </Grid>
+</UserControl>
