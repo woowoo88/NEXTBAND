@@ -14,8 +14,8 @@ public sealed class MainViewModel : ViewModelBase
     private readonly StorageService _storageService = new();
     private readonly ValidationService _validationService = new();
     private AppPage _currentPage = AppPage.Login;
-    private string _loginEmail = "lucas@email.com";
-    private string _loginPassword = "123456";
+    private string _loginEmail = string.Empty;
+    private string _loginPassword = string.Empty;
     private string _registerUserName = string.Empty;
     private string _registerPhone = string.Empty;
     private string _registerEmail = string.Empty;
@@ -23,10 +23,15 @@ public sealed class MainViewModel : ViewModelBase
     private string _registerConfirmPassword = string.Empty;
     private string _statusMessage = string.Empty;
     private bool _isStatusError;
+    private bool _showLoginPassword;
+    private bool _showRegisterPassword;
+    private bool _showRegisterConfirmPassword;
     private string _connectionSearch = string.Empty;
+    private CountryDialCodeModel _selectedDialCode;
 
     public MainViewModel()
     {
+        _selectedDialCode = CountryDialCodes[0];
         NavigateCommand = new RelayCommand(page => NavigateTo((AppPage)page!));
         BackCommand = new RelayCommand(GoBack);
         LoginCommand = new RelayCommand(Login);
@@ -44,6 +49,7 @@ public sealed class MainViewModel : ViewModelBase
         PreviewEmergencyCommand = new RelayCommand(() => NavigateTo(AppPage.EmergencyPublic));
         AddEmergencyContactCommand = new RelayCommand(AddEmergencyContact);
         AddCustomInfoCommand = new RelayCommand(AddCustomInfo);
+        AddGuardianCommand = new RelayCommand(AddGuardian);
         ViewConnectionCommand = new RelayCommand(connection =>
         {
             if (connection is ConnectionModel model)
@@ -64,6 +70,15 @@ public sealed class MainViewModel : ViewModelBase
 
     public AppDataModel Data { get; private set; } = new();
     public ObservableCollection<string> FoundDevices { get; } = [];
+    public ObservableCollection<CountryDialCodeModel> CountryDialCodes { get; } =
+    [
+        new() { Flag = "\U0001F1E7\U0001F1F7", Name = "Brasil", DialCode = "+55" },
+        new() { Flag = "\U0001F1FA\U0001F1F8", Name = "Estados Unidos", DialCode = "+1" },
+        new() { Flag = "\U0001F1F5\U0001F1F9", Name = "Portugal", DialCode = "+351" },
+        new() { Flag = "\U0001F1E6\U0001F1F7", Name = "Argentina", DialCode = "+54" },
+        new() { Flag = "\U0001F1FA\U0001F1FE", Name = "Uruguai", DialCode = "+598" },
+        new() { Flag = "\U0001F1F5\U0001F1FE", Name = "Paraguai", DialCode = "+595" }
+    ];
 
     public AppPage CurrentPage
     {
@@ -87,14 +102,16 @@ public sealed class MainViewModel : ViewModelBase
 
     public string LoginEmail { get => _loginEmail; set => SetProperty(ref _loginEmail, value); }
     public string LoginPassword { get => _loginPassword; set => SetProperty(ref _loginPassword, value); }
+    public bool ShowLoginPassword { get => _showLoginPassword; set => SetProperty(ref _showLoginPassword, value); }
     public string RegisterUserName { get => _registerUserName; set => SetProperty(ref _registerUserName, value); }
     public string RegisterPhone
     {
         get => _registerPhone;
-        set => SetProperty(ref _registerPhone, FormatBrazilianPhoneWithDdi(value));
+        set => SetProperty(ref _registerPhone, FormatPhoneNumber(value));
     }
 
     public string RegisterEmail { get => _registerEmail; set => SetProperty(ref _registerEmail, value); }
+    public CountryDialCodeModel SelectedDialCode { get => _selectedDialCode; set => SetProperty(ref _selectedDialCode, value); }
     public string RegisterPassword
     {
         get => _registerPassword;
@@ -134,7 +151,9 @@ public sealed class MainViewModel : ViewModelBase
 
     public bool IsStatusVisible => !string.IsNullOrWhiteSpace(StatusMessage);
     public bool IsStatusError { get => _isStatusError; set => SetProperty(ref _isStatusError, value); }
-    public bool IsRegisterPasswordValid => RegisterPassword.Length >= 6;
+    public bool ShowRegisterPassword { get => _showRegisterPassword; set => SetProperty(ref _showRegisterPassword, value); }
+    public bool ShowRegisterConfirmPassword { get => _showRegisterConfirmPassword; set => SetProperty(ref _showRegisterConfirmPassword, value); }
+    public bool IsRegisterPasswordValid => HasValidPasswordRules(RegisterPassword);
     public bool IsRegisterConfirmPasswordValid => IsRegisterPasswordValid && RegisterPassword == RegisterConfirmPassword;
 
     public string ConnectionSearch
@@ -198,6 +217,7 @@ public sealed class MainViewModel : ViewModelBase
     public ICommand PreviewEmergencyCommand { get; }
     public ICommand AddEmergencyContactCommand { get; }
     public ICommand AddCustomInfoCommand { get; }
+    public ICommand AddGuardianCommand { get; }
     public ICommand ViewConnectionCommand { get; }
     public ICommand LogoutCommand { get; }
 
@@ -209,8 +229,6 @@ public sealed class MainViewModel : ViewModelBase
             Data.User.Password = "123456";
         }
 
-        LoginEmail = Data.User.Email;
-        LoginPassword = Data.User.Password;
         WireDataNotifications();
         RefreshAll();
     }
@@ -311,18 +329,16 @@ public sealed class MainViewModel : ViewModelBase
 
         if (!IsRegisterConfirmPasswordValid)
         {
-            SetStatus("A senha deve ter 6 caracteres e as confirmacoes precisam ser iguais.", true);
+            SetStatus("A senha precisa ter no minimo 6 caracteres, pelo menos 1 letra, 1 numero, e a confirmacao deve ser igual.", true);
             return;
         }
 
         Data.User.UserName = RegisterUserName.TrimStart('@');
         Data.User.FullName = RegisterUserName.Trim();
-        Data.User.Phone = RegisterPhone;
+        Data.User.Phone = $"{SelectedDialCode.DialCode} {RegisterPhone}".Trim();
         Data.User.Email = RegisterEmail;
         Data.User.Password = RegisterPassword;
         Data.Band.OledText = $"@{Data.User.UserName}";
-        LoginEmail = Data.User.Email;
-        LoginPassword = Data.User.Password;
         await _storageService.SaveAsync(Data);
         CurrentPage = AppPage.Dashboard;
         SetStatus("Conta criada com sucesso.");
@@ -403,9 +419,9 @@ public sealed class MainViewModel : ViewModelBase
     {
         Data.EmergencyProfile.ExtraContacts.Add(new EmergencyContactModel
         {
-            Name = "Contato adicional",
-            Relation = "Familiar",
-            Phone = "(11) 98888-0000"
+            Name = string.Empty,
+            Relation = string.Empty,
+            Phone = string.Empty
         });
     }
 
@@ -413,9 +429,16 @@ public sealed class MainViewModel : ViewModelBase
     {
         Data.EmergencyProfile.CustomInfos.Add(new CustomInfoModel
         {
-            Title = "Plano de saude",
-            Description = "Unimed, carteirinha no 000000"
+            Title = string.Empty,
+            Description = string.Empty
         });
+    }
+
+    private void AddGuardian()
+    {
+        Data.EmergencyProfile.Guardians = string.IsNullOrWhiteSpace(Data.EmergencyProfile.Guardians)
+            ? "Novo responsavel"
+            : $"{Data.EmergencyProfile.Guardians} e Novo responsavel";
     }
 
     private static string NormalizeHex(string value)
@@ -434,7 +457,14 @@ public sealed class MainViewModel : ViewModelBase
         StatusMessage = message;
     }
 
-    private static string FormatBrazilianPhoneWithDdi(string value)
+    private static bool HasValidPasswordRules(string value)
+    {
+        return value.Length >= 6
+            && value.Any(char.IsLetter)
+            && value.Any(char.IsDigit);
+    }
+
+    private static string FormatPhoneNumber(string value)
     {
         var digits = new string(value.Where(char.IsDigit).ToArray());
         if (digits.StartsWith("55") && digits.Length > 2)
@@ -449,16 +479,16 @@ public sealed class MainViewModel : ViewModelBase
 
         if (digits.Length <= 2)
         {
-            return digits.Length == 0 ? "+55 " : $"+55 ({digits}";
+            return digits.Length == 0 ? string.Empty : $"({digits}";
         }
 
         var ddd = digits[..2];
         var number = digits[2..];
         if (number.Length <= 5)
         {
-            return $"+55 ({ddd}) {number}";
+            return $"({ddd}) {number}";
         }
 
-        return $"+55 ({ddd}) {number[..5]}-{number[5..]}";
+        return $"({ddd}) {number[..5]}-{number[5..]}";
     }
 }

@@ -42,7 +42,19 @@
                             </StackPanel>
                             <StackPanel Grid.Column="2">
                                 <TextBlock Text="Tipo sanguineo" Style="{StaticResource LabelText}" />
-                                <TextBox Text="{Binding Data.EmergencyProfile.BloodType, UpdateSourceTrigger=PropertyChanged}" />
+                                <ComboBox SelectedValue="{Binding Data.EmergencyProfile.BloodType, UpdateSourceTrigger=PropertyChanged}"
+                                          SelectedValuePath="Content"
+                                          Height="42"
+                                          VerticalContentAlignment="Center">
+                                    <ComboBoxItem Content="A+" />
+                                    <ComboBoxItem Content="A-" />
+                                    <ComboBoxItem Content="B+" />
+                                    <ComboBoxItem Content="B-" />
+                                    <ComboBoxItem Content="AB+" />
+                                    <ComboBoxItem Content="AB-" />
+                                    <ComboBoxItem Content="O+" />
+                                    <ComboBoxItem Content="O-" />
+                                </ComboBox>
                             </StackPanel>
                         </Grid>
                     </StackPanel>
@@ -51,7 +63,13 @@
                 <Border Style="{StaticResource FlatCard}" Margin="0,0,0,16">
                     <StackPanel>
                         <TextBlock Text="Responsaveis e contato" FontWeight="SemiBold" FontSize="16" Margin="0,0,0,16" />
-                        <TextBlock Text="Nome dos responsaveis" Style="{StaticResource LabelText}" />
+                        <DockPanel Margin="0,0,0,8">
+                            <TextBlock Text="Nome dos responsaveis" Style="{StaticResource LabelText}" DockPanel.Dock="Left" />
+                            <Button Content="+ Responsavel"
+                                    Command="{Binding AddGuardianCommand}"
+                                    Style="{StaticResource LinkButton}"
+                                    HorizontalAlignment="Right" />
+                        </DockPanel>
                         <TextBox Text="{Binding Data.EmergencyProfile.Guardians, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,18" />
                         <TextBlock Text="Telefone principal de emergencia" Style="{StaticResource LabelText}" />
                         <TextBox Text="{Binding Data.EmergencyProfile.MainPhone, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,18" />
@@ -85,14 +103,35 @@
                         <ItemsControl ItemsSource="{Binding Data.EmergencyProfile.ExtraContacts}" Margin="0,0,0,12">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <Border Background="{StaticResource SoftBrush}" CornerRadius="6" Padding="12" Margin="0,0,0,8">
-                                        <TextBlock>
-                                            <Run Text="{Binding Name}" FontWeight="SemiBold" />
-                                            <Run Text=" - " />
-                                            <Run Text="{Binding Relation}" />
-                                            <Run Text=" - " />
-                                            <Run Text="{Binding Phone}" />
-                                        </TextBlock>
+                                    <Border Background="{StaticResource SoftBrush}" CornerRadius="6" Padding="14" Margin="0,0,0,10">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition />
+                                                <ColumnDefinition Width="10" />
+                                                <ColumnDefinition />
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="10" />
+                                                <RowDefinition Height="Auto" />
+                                            </Grid.RowDefinitions>
+                                            <StackPanel>
+                                                <TextBlock Text="Nome" Style="{StaticResource MutedText}" />
+                                                <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
+                                            </StackPanel>
+                                            <StackPanel Grid.Column="2">
+                                                <TextBlock Text="Relacao" Style="{StaticResource MutedText}" />
+                                                <TextBox Text="{Binding Relation, UpdateSourceTrigger=PropertyChanged}" />
+                                            </StackPanel>
+                                            <StackPanel Grid.Row="2">
+                                                <TextBlock Text="Telefone" Style="{StaticResource MutedText}" />
+                                                <TextBox Text="{Binding Phone, UpdateSourceTrigger=PropertyChanged}" />
+                                            </StackPanel>
+                                            <StackPanel Grid.Row="2" Grid.Column="2">
+                                                <TextBlock Text="Observacao" Style="{StaticResource MutedText}" />
+                                                <TextBox Text="{Binding Note, UpdateSourceTrigger=PropertyChanged}" />
+                                            </StackPanel>
+                                        </Grid>
                                     </Border>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
@@ -108,12 +147,22 @@
                         <ItemsControl ItemsSource="{Binding Data.EmergencyProfile.CustomInfos}" Margin="0,0,0,12">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <Border Background="{StaticResource SoftBrush}" CornerRadius="6" Padding="12" Margin="0,0,0,8">
-                                        <TextBlock>
-                                            <Run Text="{Binding Title}" FontWeight="SemiBold" />
-                                            <Run Text=": " />
-                                            <Run Text="{Binding Description}" />
-                                        </TextBlock>
+                                    <Border Background="{StaticResource SoftBrush}" CornerRadius="6" Padding="14" Margin="0,0,0,10">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="220" />
+                                                <ColumnDefinition Width="10" />
+                                                <ColumnDefinition />
+                                            </Grid.ColumnDefinitions>
+                                            <StackPanel>
+                                                <TextBlock Text="Titulo" Style="{StaticResource MutedText}" />
+                                                <TextBox Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}" />
+                                            </StackPanel>
+                                            <StackPanel Grid.Column="2">
+                                                <TextBlock Text="Descricao" Style="{StaticResource MutedText}" />
+                                                <TextBox Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}" />
+                                            </StackPanel>
+                                        </Grid>
                                     </Border>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>

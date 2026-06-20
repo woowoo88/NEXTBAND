@@ -8,13 +8,22 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Border Background="{StaticResource DangerBrush}" Padding="24,0">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock Text="!" Foreground="White" FontSize="24" FontWeight="Bold" Margin="0,0,14,0" />
-                <StackPanel>
+            <DockPanel>
+                <Button Content="&lt; Voltar"
+                        Command="{Binding BackCommand}"
+                        Style="{StaticResource LinkButton}"
+                        Foreground="White"
+                        FontWeight="Bold"
+                        Width="98"
+                        DockPanel.Dock="Left" />
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="!" Foreground="White" FontSize="24" FontWeight="Bold" Margin="0,0,14,0" />
+                    <StackPanel>
                     <TextBlock Text="INFORMACOES DE EMERGENCIA" Foreground="White" FontWeight="Bold" />
                     <TextBlock Text="Em caso de emergencia, ligue 192 (SAMU) ou 193." Foreground="White" />
+                    </StackPanel>
                 </StackPanel>
-            </StackPanel>
+            </DockPanel>
         </Border>
         <Border Grid.Row="1" Background="{StaticResource BrandGradient}" Padding="0,30">
             <StackPanel Width="660" HorizontalAlignment="Center">
@@ -36,7 +45,7 @@
                         <TextBlock Text="RESPONSAVEIS" Foreground="{StaticResource MutedBrush}" FontSize="12" />
                         <TextBlock Text="{Binding Data.EmergencyProfile.Guardians}" FontSize="16" FontWeight="SemiBold" Margin="0,2,0,16" />
                         <TextBlock Text="TELEFONE DE EMERGENCIA" Foreground="{StaticResource MutedBrush}" FontSize="12" />
-                        <Button Content="{Binding Data.EmergencyProfile.MainPhone, StringFormat=Ligar {0}}" Command="{Binding ShareProfileCommand}" Style="{StaticResource PrimaryButton}" Width="190" HorizontalAlignment="Left" Margin="0,6,0,16" />
+                        <Button Content="{Binding Data.EmergencyProfile.MainPhone, StringFormat=Ligar {0}}" Style="{StaticResource PrimaryButton}" Width="190" HorizontalAlignment="Left" Margin="0,6,0,16" />
                         <TextBlock Text="ENDERECO" Foreground="{StaticResource MutedBrush}" FontSize="12" />
                         <TextBlock Text="{Binding Data.EmergencyProfile.Address}" FontSize="16" />
                     </StackPanel>
