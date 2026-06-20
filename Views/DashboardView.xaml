@@ -1,0 +1,80 @@
+<UserControl x:Class="NextBand.Views.DashboardView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:services="clr-namespace:NextBand.Services">
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="144" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Border Background="{StaticResource BrandGradient}" Padding="18,30">
+            <DockPanel>
+                <TextBlock Text="NextBand" Foreground="White" FontSize="18" FontWeight="Bold" DockPanel.Dock="Left" />
+                <Border Background="#33FFFFFF" CornerRadius="14" Padding="12,6" HorizontalAlignment="Right">
+                    <TextBlock Text="NFC" Foreground="White" FontWeight="SemiBold" />
+                </Border>
+            </DockPanel>
+        </Border>
+
+        <ScrollViewer Grid.RowSpan="2" Margin="16,88,16,0" VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <Border Style="{StaticResource Card}" Margin="0,0,0,32">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,18">
+                            <Border Width="64" Height="64" CornerRadius="32" Background="{StaticResource BrandGradient}" Margin="0,0,18,0">
+                                <TextBlock Text="P" Foreground="White" FontSize="30" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                            <StackPanel VerticalAlignment="Center">
+                                <TextBlock Text="{Binding Data.User.FullName}" FontSize="18" FontWeight="Bold" />
+                                <TextBlock Text="{Binding Data.User.UserName, StringFormat=@{0}}" Foreground="{StaticResource MutedBrush}" />
+                            </StackPanel>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,22">
+                            <Ellipse Width="9" Height="9" Fill="{StaticResource SuccessBrush}" Margin="0,0,8,0" />
+                            <TextBlock Text="{Binding DashboardBandStatusText}" Foreground="{StaticResource MutedBrush}" />
+                        </StackPanel>
+
+                        <Button Content="Compartilhar perfil" Command="{Binding ShareProfileCommand}" Style="{StaticResource PrimaryButton}" Margin="0,0,0,12" />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="12" />
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="12" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Button Content="Meu perfil" Command="{Binding NavigateCommand}" CommandParameter="{x:Static services:AppPage.Profile}" Style="{StaticResource SecondaryButton}" />
+                            <Button Grid.Column="2" Content="My Band" Command="{Binding NavigateCommand}" CommandParameter="{x:Static services:AppPage.MyBand}" Style="{StaticResource PrimaryButton}" />
+                            <Button Grid.Column="4" Content="Editar perfil" Command="{Binding NavigateCommand}" CommandParameter="{x:Static services:AppPage.EditProfile}" Style="{StaticResource SecondaryButton}" />
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <DockPanel Margin="0,0,0,14">
+                    <TextBlock Text="CONEXOES RECENTES" Foreground="{StaticResource MutedBrush}" FontSize="14" FontWeight="SemiBold" DockPanel.Dock="Left" />
+                    <Button Content="Ver todas" Command="{Binding NavigateCommand}" CommandParameter="{x:Static services:AppPage.Connections}" Style="{StaticResource LinkButton}" HorizontalAlignment="Right" />
+                </DockPanel>
+                <ItemsControl ItemsSource="{Binding RecentConnections}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Style="{StaticResource FlatCard}" Margin="0,0,0,12">
+                                <DockPanel>
+                                    <TextBlock Text="{Binding ConnectedAgo}" Foreground="{StaticResource MutedBrush}" DockPanel.Dock="Right" VerticalAlignment="Center" />
+                                    <Border Width="40" Height="40" CornerRadius="20" Background="{StaticResource SoftBrush}" Margin="0,0,14,0">
+                                        <TextBlock Text="P" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MutedBrush}" />
+                                    </Border>
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding Name}" FontWeight="SemiBold" />
+                                        <TextBlock Text="{Binding UserName, StringFormat=@{0}}" Foreground="{StaticResource MutedBrush}" FontSize="12" />
+                                    </StackPanel>
+                                </DockPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

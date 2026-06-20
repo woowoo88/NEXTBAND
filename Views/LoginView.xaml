@@ -1,0 +1,25 @@
+<UserControl x:Class="NextBand.Views.LoginView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:components="clr-namespace:NextBand.Components"
+             xmlns:services="clr-namespace:NextBand.Services">
+    <Grid Background="White">
+        <StackPanel Width="390" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock Text="NextBand" FontSize="34" FontWeight="Bold" Foreground="{StaticResource BlueBrush}" HorizontalAlignment="Center" />
+            <TextBlock Text="Conecte-se ao futuro do networking" Style="{StaticResource MutedText}" HorizontalAlignment="Center" Margin="0,8,0,42" />
+
+            <TextBlock Text="Email" Style="{StaticResource LabelText}" />
+            <TextBox Text="{Binding LoginEmail, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,22" />
+
+            <TextBlock Text="Senha" Style="{StaticResource LabelText}" />
+            <PasswordBox components:PasswordBoxAssistant.BoundPassword="{Binding LoginPassword, Mode=TwoWay}" Margin="0,0,0,24" />
+
+            <Button Content="Entrar" Command="{Binding LoginCommand}" Style="{StaticResource PrimaryButton}" />
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,24,0,0">
+                <TextBlock Text="Nao tem uma conta? " Foreground="{StaticResource MutedBrush}" VerticalAlignment="Center" />
+                <Button Content="Cadastre-se" Command="{Binding NavigateCommand}" CommandParameter="{x:Static services:AppPage.Register}" Style="{StaticResource LinkButton}" />
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>
