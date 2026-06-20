@@ -8,15 +8,15 @@
         WindowStartupLocation="CenterScreen"
         WindowState="Maximized">
     <Grid Background="White">
-        <views:LoginView Tag="{Binding IsLoginVisible}" />
-        <views:RegisterView Tag="{Binding IsRegisterVisible}" />
-        <views:DashboardView Tag="{Binding IsDashboardVisible}" />
-        <views:ProfileView Tag="{Binding IsProfileVisible}" />
-        <views:EditProfileView Tag="{Binding IsEditProfileVisible}" />
-        <views:ConnectionsView Tag="{Binding IsConnectionsVisible}" />
-        <views:MyBandView Tag="{Binding IsMyBandVisible}" />
-        <views:CustomUrlView Tag="{Binding IsCustomUrlVisible}" />
-        <views:EmergencyPublicView Tag="{Binding IsEmergencyPublicVisible}" />
+        <views:LoginView Tag="{Binding IsLoginVisible}" Visibility="{Binding IsLoginVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
+        <views:RegisterView Tag="{Binding IsRegisterVisible}" Visibility="{Binding IsRegisterVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
+        <views:DashboardView Tag="{Binding IsDashboardVisible}" Visibility="{Binding IsDashboardVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
+        <views:ProfileView Tag="{Binding IsProfileVisible}" Visibility="{Binding IsProfileVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
+        <views:EditProfileView Tag="{Binding IsEditProfileVisible}" Visibility="{Binding IsEditProfileVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
+        <views:ConnectionsView Tag="{Binding IsConnectionsVisible}" Visibility="{Binding IsConnectionsVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
+        <views:MyBandView Tag="{Binding IsMyBandVisible}" Visibility="{Binding IsMyBandVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
+        <views:CustomUrlView Tag="{Binding IsCustomUrlVisible}" Visibility="{Binding IsCustomUrlVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
+        <views:EmergencyPublicView Tag="{Binding IsEmergencyPublicVisible}" Visibility="{Binding IsEmergencyPublicVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
 
         <Border HorizontalAlignment="Center"
                 VerticalAlignment="Bottom"

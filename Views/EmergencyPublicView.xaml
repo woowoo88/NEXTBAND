@@ -8,34 +8,37 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Border Background="{StaticResource DangerBrush}" Padding="24,0">
-            <DockPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="!" Foreground="White" FontSize="24" FontWeight="Bold" Margin="0,0,14,0" />
+                <StackPanel>
+                    <TextBlock Text="INFORMACOES DE EMERGENCIA" Foreground="White" FontWeight="Bold" />
+                    <TextBlock Text="Em caso de emergencia, ligue 192 (SAMU) ou 193." Foreground="White" />
+                </StackPanel>
+            </StackPanel>
+        </Border>
+        <Border Grid.Row="1" Background="{StaticResource BrandGradient}" Padding="0,30">
+            <Grid>
                 <Button Content="&lt; Voltar"
                         Command="{Binding BackCommand}"
                         Style="{StaticResource LinkButton}"
                         Foreground="White"
                         FontWeight="Bold"
                         Width="98"
-                        DockPanel.Dock="Left" />
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <TextBlock Text="!" Foreground="White" FontSize="24" FontWeight="Bold" Margin="0,0,14,0" />
-                    <StackPanel>
-                    <TextBlock Text="INFORMACOES DE EMERGENCIA" Foreground="White" FontWeight="Bold" />
-                    <TextBlock Text="Em caso de emergencia, ligue 192 (SAMU) ou 193." Foreground="White" />
-                    </StackPanel>
+                        Height="34"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Margin="24,-14,0,0" />
+                <StackPanel Width="660" HorizontalAlignment="Center">
+                    <TextBlock Text="CRIANCA" Foreground="#E9E7FF" FontWeight="SemiBold" />
+                    <TextBlock Text="{Binding Data.EmergencyProfile.ChildName}" Foreground="White" FontSize="30" FontWeight="Bold" />
+                    <TextBlock Foreground="White" Margin="0,8,0,0">
+                        <Run Text="Idade: " />
+                        <Run Text="{Binding Data.EmergencyProfile.Age}" />
+                        <Run Text="    Tipo sanguineo: " />
+                        <Run Text="{Binding Data.EmergencyProfile.BloodType}" />
+                    </TextBlock>
                 </StackPanel>
-            </DockPanel>
-        </Border>
-        <Border Grid.Row="1" Background="{StaticResource BrandGradient}" Padding="0,30">
-            <StackPanel Width="660" HorizontalAlignment="Center">
-                <TextBlock Text="CRIANCA" Foreground="#E9E7FF" FontWeight="SemiBold" />
-                <TextBlock Text="{Binding Data.EmergencyProfile.ChildName}" Foreground="White" FontSize="30" FontWeight="Bold" />
-                <TextBlock Foreground="White" Margin="0,8,0,0">
-                    <Run Text="Idade: " />
-                    <Run Text="{Binding Data.EmergencyProfile.Age}" />
-                    <Run Text="    Tipo sanguineo: " />
-                    <Run Text="{Binding Data.EmergencyProfile.BloodType}" />
-                </TextBlock>
-            </StackPanel>
+            </Grid>
         </Border>
         <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
             <StackPanel Width="640" HorizontalAlignment="Center" Margin="0,24,0,40">
