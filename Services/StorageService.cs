@@ -8,7 +8,8 @@ namespace NextBand.Services;
 public sealed class StorageService
 {
     private const int PasswordIterations = 210_000;
-    private readonly string? _connectionString = Environment.GetEnvironmentVariable("NEXTBAND_SQL_CONNECTION");
+    private const string DefaultConnectionString = "Server=tcp:192.168.68.111,1433;Database=NextBand;User Id=NextBandApp;Password=N3xtBand!2026#A9p;Encrypt=False;TrustServerCertificate=True;Connection Timeout=8;";
+    private readonly string _connectionString = ResolveConnectionString();
 
     public async Task<AppDataModel> LoadAsync()
     {
@@ -91,6 +92,12 @@ public sealed class StorageService
     }
 
     private bool IsConfigured => !string.IsNullOrWhiteSpace(_connectionString);
+
+    private static string ResolveConnectionString()
+    {
+        var configured = Environment.GetEnvironmentVariable("NEXTBAND_SQL_CONNECTION");
+        return string.IsNullOrWhiteSpace(configured) ? DefaultConnectionString : configured;
+    }
 
     private SqlConnection CreateConnection()
     {
