@@ -93,7 +93,7 @@ public sealed class CountryFlagImageConverter : IValueConverter
     private static DrawingImage CreateFallback()
     {
         var group = new DrawingGroup();
-        AddRect(group, "#EEF2FF", 0, 0, 32, 22);
+        AddRect(group, "#ECFDF5", 0, 0, 32, 22);
         return Freeze(group);
     }
 

@@ -30,7 +30,7 @@
                                         <ColumnDefinition Width="*" />
                                         <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
-                                    <Border Width="30" Height="22" CornerRadius="5" Background="#EEF2FF" HorizontalAlignment="Left">
+                                    <Border Width="30" Height="22" CornerRadius="5" Background="#ECFDF5" HorizontalAlignment="Left">
                                         <Image Source="{Binding IsoCode, Converter={StaticResource CountryFlagImageConverter}}"
                                                Width="24"
                                                Height="16"

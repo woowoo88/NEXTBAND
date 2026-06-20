@@ -29,7 +29,7 @@
                         VerticalAlignment="Top"
                         Margin="24,-14,0,0" />
                 <StackPanel Width="660" HorizontalAlignment="Center">
-                    <TextBlock Text="CRIANCA" Foreground="#E9E7FF" FontWeight="SemiBold" />
+                    <TextBlock Text="CRIANÇA" Foreground="#DCFCE7" FontWeight="SemiBold" />
                     <TextBlock Text="{Binding Data.EmergencyProfile.ChildName}" Foreground="White" FontSize="30" FontWeight="Bold" />
                     <TextBlock Foreground="White" Margin="0,8,0,0">
                         <Run Text="Idade: " />

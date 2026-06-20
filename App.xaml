@@ -7,14 +7,14 @@
         <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
         <converters:CountryFlagImageConverter x:Key="CountryFlagImageConverter" />
 
-        <Color x:Key="BlueColor">#3B55F6</Color>
-        <Color x:Key="PurpleColor">#9B3FDB</Color>
-        <Color x:Key="InkColor">#171923</Color>
+        <Color x:Key="BlueColor">#2563EB</Color>
+        <Color x:Key="GreenColor">#10B981</Color>
+        <Color x:Key="InkColor">#0F172A</Color>
         <Color x:Key="MutedColor">#6B7280</Color>
-        <Color x:Key="LineColor">#E5E7EB</Color>
-        <Color x:Key="SoftColor">#F7F7FA</Color>
+        <Color x:Key="LineColor">#DDE5EF</Color>
+        <Color x:Key="SoftColor">#F8FAFC</Color>
         <Color x:Key="DangerColor">#EF4444</Color>
-        <Color x:Key="SuccessColor">#2ECC71</Color>
+        <Color x:Key="SuccessColor">#10B981</Color>
 
         <SolidColorBrush x:Key="InkBrush" Color="{StaticResource InkColor}" />
         <SolidColorBrush x:Key="MutedBrush" Color="{StaticResource MutedColor}" />
@@ -23,10 +23,11 @@
         <SolidColorBrush x:Key="DangerBrush" Color="{StaticResource DangerColor}" />
         <SolidColorBrush x:Key="SuccessBrush" Color="{StaticResource SuccessColor}" />
         <SolidColorBrush x:Key="BlueBrush" Color="{StaticResource BlueColor}" />
+        <SolidColorBrush x:Key="GreenBrush" Color="{StaticResource GreenColor}" />
 
         <LinearGradientBrush x:Key="BrandGradient" StartPoint="0,0.5" EndPoint="1,0.5">
             <GradientStop Color="{StaticResource BlueColor}" Offset="0" />
-            <GradientStop Color="{StaticResource PurpleColor}" Offset="1" />
+            <GradientStop Color="{StaticResource GreenColor}" Offset="1" />
         </LinearGradientBrush>
 
         <Style TargetType="{x:Type Window}">
@@ -190,7 +191,7 @@
                                         </Border>
                                         <ControlTemplate.Triggers>
                                             <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter TargetName="Chrome" Property="BorderBrush" Value="#C7D2FE" />
+                                                <Setter TargetName="Chrome" Property="BorderBrush" Value="#93C5FD" />
                                             </Trigger>
                                             <Trigger Property="IsChecked" Value="True">
                                                 <Setter TargetName="Chrome" Property="BorderBrush" Value="{StaticResource BlueBrush}" />
@@ -237,10 +238,10 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsHighlighted" Value="True">
-                                <Setter TargetName="ItemBorder" Property="Background" Value="#EEF2FF" />
+                                <Setter TargetName="ItemBorder" Property="Background" Value="#EFF6FF" />
                             </Trigger>
                             <Trigger Property="IsSelected" Value="True">
-                                <Setter TargetName="ItemBorder" Property="Background" Value="#E0E7FF" />
+                                <Setter TargetName="ItemBorder" Property="Background" Value="#D1FAE5" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -293,7 +294,7 @@
         <Style x:Key="LinkButton" TargetType="{x:Type Button}">
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="BorderThickness" Value="0" />
-            <Setter Property="Foreground" Value="#4F46E5" />
+            <Setter Property="Foreground" Value="{StaticResource BlueBrush}" />
             <Setter Property="FontWeight" Value="SemiBold" />
             <Setter Property="Cursor" Value="Hand" />
             <Setter Property="Padding" Value="2" />
@@ -310,7 +311,7 @@
                         </Grid>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsChecked" Value="True">
-                                <Setter TargetName="Track" Property="Background" Value="{StaticResource BlueBrush}" />
+                                <Setter TargetName="Track" Property="Background" Value="{StaticResource GreenBrush}" />
                                 <Setter TargetName="Thumb" Property="HorizontalAlignment" Value="Right" />
                             </Trigger>
                         </ControlTemplate.Triggers>
