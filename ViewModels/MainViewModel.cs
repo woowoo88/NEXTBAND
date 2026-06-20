@@ -22,6 +22,7 @@ public sealed class MainViewModel : ViewModelBase
     private string _registerPassword = string.Empty;
     private string _registerConfirmPassword = string.Empty;
     private string _statusMessage = string.Empty;
+    private bool _isStatusError;
     private string _connectionSearch = string.Empty;
 
     public MainViewModel()
@@ -36,7 +37,7 @@ public sealed class MainViewModel : ViewModelBase
         DisconnectBandCommand = new RelayCommand(() =>
         {
             Data.Band.IsConnected = false;
-            StatusMessage = "Pulseira desconectada.";
+            SetStatus("Pulseira desconectada.");
         });
         SendBandCommand = new RelayCommand(async () => await SendBandAsync());
         SaveEmergencyCommand = new RelayCommand(async () => await SaveEmergencyAsync());
@@ -48,14 +49,14 @@ public sealed class MainViewModel : ViewModelBase
             if (connection is ConnectionModel model)
             {
                 model.IsNew = false;
-                StatusMessage = $"Perfil de {model.Name} visualizado.";
+                SetStatus($"Perfil de {model.Name} visualizado.");
                 OnPropertyChanged(nameof(FilteredConnections));
             }
         });
         LogoutCommand = new RelayCommand(() =>
         {
             CurrentPage = AppPage.Login;
-            StatusMessage = "Voce saiu da conta.";
+            SetStatus("Voce saiu da conta.");
         });
 
         _ = LoadAsync();
@@ -87,16 +88,54 @@ public sealed class MainViewModel : ViewModelBase
     public string LoginEmail { get => _loginEmail; set => SetProperty(ref _loginEmail, value); }
     public string LoginPassword { get => _loginPassword; set => SetProperty(ref _loginPassword, value); }
     public string RegisterUserName { get => _registerUserName; set => SetProperty(ref _registerUserName, value); }
-    public string RegisterPhone { get => _registerPhone; set => SetProperty(ref _registerPhone, value); }
+    public string RegisterPhone
+    {
+        get => _registerPhone;
+        set => SetProperty(ref _registerPhone, FormatBrazilianPhoneWithDdi(value));
+    }
+
     public string RegisterEmail { get => _registerEmail; set => SetProperty(ref _registerEmail, value); }
-    public string RegisterPassword { get => _registerPassword; set => SetProperty(ref _registerPassword, value); }
-    public string RegisterConfirmPassword { get => _registerConfirmPassword; set => SetProperty(ref _registerConfirmPassword, value); }
+    public string RegisterPassword
+    {
+        get => _registerPassword;
+        set
+        {
+            if (SetProperty(ref _registerPassword, value))
+            {
+                OnPropertyChanged(nameof(IsRegisterPasswordValid));
+                OnPropertyChanged(nameof(IsRegisterConfirmPasswordValid));
+            }
+        }
+    }
+
+    public string RegisterConfirmPassword
+    {
+        get => _registerConfirmPassword;
+        set
+        {
+            if (SetProperty(ref _registerConfirmPassword, value))
+            {
+                OnPropertyChanged(nameof(IsRegisterConfirmPasswordValid));
+            }
+        }
+    }
 
     public string StatusMessage
     {
         get => _statusMessage;
-        set => SetProperty(ref _statusMessage, value);
+        set
+        {
+            if (SetProperty(ref _statusMessage, value))
+            {
+                OnPropertyChanged(nameof(IsStatusVisible));
+            }
+        }
     }
+
+    public bool IsStatusVisible => !string.IsNullOrWhiteSpace(StatusMessage);
+    public bool IsStatusError { get => _isStatusError; set => SetProperty(ref _isStatusError, value); }
+    public bool IsRegisterPasswordValid => RegisterPassword.Length >= 6;
+    public bool IsRegisterConfirmPasswordValid => IsRegisterPasswordValid && RegisterPassword == RegisterConfirmPassword;
 
     public string ConnectionSearch
     {
@@ -165,6 +204,13 @@ public sealed class MainViewModel : ViewModelBase
     private async Task LoadAsync()
     {
         Data = await _storageService.LoadAsync();
+        if (string.IsNullOrWhiteSpace(Data.User.Password))
+        {
+            Data.User.Password = "123456";
+        }
+
+        LoginEmail = Data.User.Email;
+        LoginPassword = Data.User.Password;
         WireDataNotifications();
         RefreshAll();
     }
@@ -204,7 +250,7 @@ public sealed class MainViewModel : ViewModelBase
     private void NavigateTo(AppPage page)
     {
         CurrentPage = page;
-        StatusMessage = string.Empty;
+        SetStatus(string.Empty);
     }
 
     private void GoBack()
@@ -226,37 +272,46 @@ public sealed class MainViewModel : ViewModelBase
     {
         if (!_validationService.IsEmail(LoginEmail) || string.IsNullOrWhiteSpace(LoginPassword))
         {
-            StatusMessage = "Informe um e-mail valido e sua senha.";
+            SetStatus("Informe um e-mail valido e sua senha.", true);
+            return;
+        }
+
+        var emailMatches = string.Equals(LoginEmail.Trim(), Data.User.Email.Trim(), StringComparison.OrdinalIgnoreCase);
+        var passwordMatches = LoginPassword == Data.User.Password;
+
+        if (!emailMatches || !passwordMatches)
+        {
+            SetStatus("E-mail ou senha incorretos. Confira os dados e tente novamente.", true);
             return;
         }
 
         CurrentPage = AppPage.Dashboard;
-        StatusMessage = "Login realizado com sucesso.";
+        SetStatus("Login realizado com sucesso.");
     }
 
-    private void Register()
+    private async void Register()
     {
         if (string.IsNullOrWhiteSpace(RegisterUserName))
         {
-            StatusMessage = "Informe um nome de usuario.";
+            SetStatus("Informe um nome de usuario.", true);
             return;
         }
 
         if (!_validationService.IsBrazilianPhone(RegisterPhone))
         {
-            StatusMessage = "Informe um celular brasileiro valido.";
+            SetStatus("Informe um celular brasileiro valido.", true);
             return;
         }
 
         if (!_validationService.IsEmail(RegisterEmail))
         {
-            StatusMessage = "Informe um e-mail valido.";
+            SetStatus("Informe um e-mail valido.", true);
             return;
         }
 
-        if (RegisterPassword.Length < 6 || RegisterPassword != RegisterConfirmPassword)
+        if (!IsRegisterConfirmPasswordValid)
         {
-            StatusMessage = "A senha deve ter 6 caracteres e as confirmacoes precisam ser iguais.";
+            SetStatus("A senha deve ter 6 caracteres e as confirmacoes precisam ser iguais.", true);
             return;
         }
 
@@ -266,29 +321,32 @@ public sealed class MainViewModel : ViewModelBase
         Data.User.Email = RegisterEmail;
         Data.User.Password = RegisterPassword;
         Data.Band.OledText = $"@{Data.User.UserName}";
+        LoginEmail = Data.User.Email;
+        LoginPassword = Data.User.Password;
+        await _storageService.SaveAsync(Data);
         CurrentPage = AppPage.Dashboard;
-        StatusMessage = "Conta criada com sucesso.";
+        SetStatus("Conta criada com sucesso.");
     }
 
     private async Task SaveProfileAsync()
     {
         if (!_validationService.IsEmail(Data.User.Email) || string.IsNullOrWhiteSpace(Data.User.UserName))
         {
-            StatusMessage = "Revise o e-mail e o nome de usuario.";
+            SetStatus("Revise o e-mail e o nome de usuario.", true);
             return;
         }
 
         Data.User.UserName = Data.User.UserName.TrimStart('@');
         Data.Band.OledText = $"@{Data.User.UserName}";
         await _storageService.SaveAsync(Data);
-        StatusMessage = "Perfil atualizado com sucesso.";
+        SetStatus("Perfil atualizado com sucesso.");
         CurrentPage = AppPage.Profile;
     }
 
     private void ShareProfile()
     {
         var payload = _nfcService.BuildProfilePayload(Data.User.UserName);
-        StatusMessage = $"Perfil pronto para compartilhar via NFC: {payload}";
+        SetStatus($"Perfil pronto para compartilhar via NFC: {payload}");
     }
 
     private async Task ConnectBandAsync()
@@ -302,9 +360,10 @@ public sealed class MainViewModel : ViewModelBase
         var selected = FoundDevices.FirstOrDefault(device => device.Contains("ESP32", StringComparison.OrdinalIgnoreCase)) ?? FoundDevices.First();
         Data.Band.IsConnected = await _bluetoothService.ConnectAsync(selected);
         Data.Band.DeviceName = selected;
-        StatusMessage = Data.Band.IsConnected
+        SetStatus(Data.Band.IsConnected
             ? "Pulseira conectada com sucesso."
-            : "Nao foi possivel conectar. Tente novamente.";
+            : "Nao foi possivel conectar. Tente novamente.",
+            !Data.Band.IsConnected);
     }
 
     private async Task SendBandAsync()
@@ -312,31 +371,31 @@ public sealed class MainViewModel : ViewModelBase
         if (!Data.Band.IsConnected)
         {
             await _storageService.SaveAsync(Data);
-            StatusMessage = "Configuracao salva para sincronizar depois.";
+            SetStatus("Configuracao salva para sincronizar depois.");
             return;
         }
 
         await _bluetoothService.SendAsync($"{Data.Band.OledText}|{Data.Band.LedHexColor}|{Data.Band.QuickLink}");
         await _storageService.SaveAsync(Data);
-        StatusMessage = "Dados enviados para a pulseira.";
+        SetStatus("Dados enviados para a pulseira.");
     }
 
     private async Task SaveEmergencyAsync()
     {
         if (string.IsNullOrWhiteSpace(Data.EmergencyProfile.ChildName))
         {
-            StatusMessage = "Informe o nome da crianca.";
+            SetStatus("Informe o nome da crianca.", true);
             return;
         }
 
         if (!_validationService.IsBloodType(Data.EmergencyProfile.BloodType))
         {
-            StatusMessage = "Tipo sanguineo deve ser A+, A-, B+, B-, AB+, AB-, O+ ou O-.";
+            SetStatus("Tipo sanguineo deve ser A+, A-, B+, B-, AB+, AB-, O+ ou O-.", true);
             return;
         }
 
         await _storageService.SaveAsync(Data);
-        StatusMessage = "Informacoes de emergencia salvas.";
+        SetStatus("Informacoes de emergencia salvas.");
         OnPropertyChanged(nameof(EmergencyUrl));
     }
 
@@ -367,5 +426,39 @@ public sealed class MainViewModel : ViewModelBase
         }
 
         return value.StartsWith('#') ? value : $"#{value}";
+    }
+
+    private void SetStatus(string message, bool isError = false)
+    {
+        IsStatusError = isError;
+        StatusMessage = message;
+    }
+
+    private static string FormatBrazilianPhoneWithDdi(string value)
+    {
+        var digits = new string(value.Where(char.IsDigit).ToArray());
+        if (digits.StartsWith("55") && digits.Length > 2)
+        {
+            digits = digits[2..];
+        }
+
+        if (digits.Length > 11)
+        {
+            digits = digits[..11];
+        }
+
+        if (digits.Length <= 2)
+        {
+            return digits.Length == 0 ? "+55 " : $"+55 ({digits}";
+        }
+
+        var ddd = digits[..2];
+        var number = digits[2..];
+        if (number.Length <= 5)
+        {
+            return $"+55 ({ddd}) {number}";
+        }
+
+        return $"+55 ({ddd}) {number[..5]}-{number[5..]}";
     }
 }

@@ -11,7 +11,13 @@ public sealed class ValidationService
 
     public bool IsBrazilianPhone(string value)
     {
-        return Regex.IsMatch(value.Trim(), @"^\(?\d{2}\)?\s?\d{4,5}-?\d{4}$");
+        var digits = Regex.Replace(value, @"\D", string.Empty);
+        if (digits.StartsWith("55") && digits.Length > 2)
+        {
+            digits = digits[2..];
+        }
+
+        return digits.Length is 10 or 11;
     }
 
     public bool IsBloodType(string value)

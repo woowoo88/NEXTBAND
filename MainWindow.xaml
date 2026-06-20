@@ -21,18 +21,48 @@
         <Border HorizontalAlignment="Center"
                 VerticalAlignment="Bottom"
                 Margin="24"
-                Padding="18,10"
+                Padding="14,10"
                 CornerRadius="8"
-                Background="#F9FAFB"
-                BorderBrush="{StaticResource LineBrush}"
                 BorderThickness="1">
-            <TextBlock Text="{Binding StatusMessage}" Foreground="{StaticResource MutedBrush}" FontWeight="SemiBold" />
+            <StackPanel Orientation="Horizontal">
+                <Border Width="20" Height="20" CornerRadius="10" Background="#FCA5A5" Margin="0,0,10,0">
+                    <TextBlock Text="!" Foreground="#991B1B" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    <Border.Style>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsStatusError}" Value="True">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+                </Border>
+                <TextBlock Text="{Binding StatusMessage}" FontWeight="SemiBold" VerticalAlignment="Center">
+                    <TextBlock.Style>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Foreground" Value="{StaticResource MutedBrush}" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsStatusError}" Value="True">
+                                    <Setter Property="Foreground" Value="#991B1B" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </StackPanel>
             <Border.Style>
                 <Style TargetType="{x:Type Border}">
                     <Setter Property="Visibility" Value="Visible" />
+                    <Setter Property="Background" Value="#F9FAFB" />
+                    <Setter Property="BorderBrush" Value="{StaticResource LineBrush}" />
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding StatusMessage}" Value="">
+                        <DataTrigger Binding="{Binding IsStatusVisible}" Value="False">
                             <Setter Property="Visibility" Value="Collapsed" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding IsStatusError}" Value="True">
+                            <Setter Property="Background" Value="#FEF2F2" />
+                            <Setter Property="BorderBrush" Value="#FECACA" />
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>

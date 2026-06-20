@@ -16,9 +16,39 @@
                 <TextBlock Text="Email" Style="{StaticResource LabelText}" />
                 <TextBox Text="{Binding RegisterEmail, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,20" />
                 <TextBlock Text="Senha" Style="{StaticResource LabelText}" />
-                <PasswordBox components:PasswordBoxAssistant.BoundPassword="{Binding RegisterPassword, Mode=TwoWay}" Margin="0,0,0,20" />
+                <Grid Margin="0,0,0,20">
+                    <PasswordBox components:PasswordBoxAssistant.BoundPassword="{Binding RegisterPassword, Mode=TwoWay}" Padding="14,9,44,9" />
+                    <Border Width="24" Height="24" CornerRadius="12" Background="#DCFCE7" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0">
+                        <TextBlock Text="✓" Foreground="#16A34A" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        <Border.Style>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsRegisterPasswordValid}" Value="True">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                    </Border>
+                </Grid>
                 <TextBlock Text="Confirmar senha" Style="{StaticResource LabelText}" />
-                <PasswordBox components:PasswordBoxAssistant.BoundPassword="{Binding RegisterConfirmPassword, Mode=TwoWay}" Margin="0,0,0,24" />
+                <Grid Margin="0,0,0,24">
+                    <PasswordBox components:PasswordBoxAssistant.BoundPassword="{Binding RegisterConfirmPassword, Mode=TwoWay}" Padding="14,9,44,9" />
+                    <Border Width="24" Height="24" CornerRadius="12" Background="#DCFCE7" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0">
+                        <TextBlock Text="✓" Foreground="#16A34A" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        <Border.Style>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsRegisterConfirmPasswordValid}" Value="True">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                    </Border>
+                </Grid>
 
                 <Button Content="Criar conta" Command="{Binding RegisterCommand}" Style="{StaticResource PrimaryButton}" />
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,24,0,0">
