@@ -45,39 +45,32 @@
                 <Border Style="{StaticResource FlatCard}">
                     <StackPanel>
                         <TextBlock Text="OUTRAS INFORMACOES" FontWeight="Bold" FontSize="15" Margin="0,0,0,16" />
-                        <ItemsControl>
-                            <ItemsControl.Items>
-                                <StackPanel>
-                                    <TextBlock Text="ALERGIAS" Foreground="{StaticResource MutedBrush}" FontSize="12" />
-                                    <TextBlock Text="{Binding Data.EmergencyProfile.Allergies}" FontSize="15" />
-                                </StackPanel>
-                                <StackPanel>
-                                    <TextBlock Text="CONDICOES MEDICAS" Foreground="{StaticResource MutedBrush}" FontSize="12" />
-                                    <TextBlock Text="{Binding Data.EmergencyProfile.MedicalConditions}" FontSize="15" />
-                                </StackPanel>
-                                <StackPanel>
-                                    <TextBlock Text="DEFICIENCIAS" Foreground="{StaticResource MutedBrush}" FontSize="12" />
-                                    <TextBlock Text="{Binding Data.EmergencyProfile.Disabilities}" FontSize="15" />
-                                </StackPanel>
-                                <StackPanel>
-                                    <TextBlock Text="NECESSIDADES ESPECIAIS" Foreground="{StaticResource MutedBrush}" FontSize="12" />
-                                    <TextBlock Text="{Binding Data.EmergencyProfile.SpecialNeeds}" FontSize="15" />
-                                </StackPanel>
-                                <StackPanel>
-                                    <TextBlock Text="MEDICAMENTOS" Foreground="{StaticResource MutedBrush}" FontSize="12" />
-                                    <TextBlock Text="{Binding EmergencyPublicMedication}" FontSize="15" />
-                                </StackPanel>
-                                <StackPanel>
-                                    <TextBlock Text="INSTRUCOES PARA EMERGENCIA" Foreground="{StaticResource MutedBrush}" FontSize="12" />
-                                    <TextBlock Text="{Binding Data.EmergencyProfile.EmergencyInstructions}" FontSize="15" />
-                                </StackPanel>
-                            </ItemsControl.Items>
-                            <ItemsControl.ItemContainerStyle>
-                                <Style TargetType="{x:Type ContentPresenter}">
-                                    <Setter Property="Margin" Value="0,0,0,18" />
-                                </Style>
-                            </ItemsControl.ItemContainerStyle>
-                        </ItemsControl>
+                        <StackPanel>
+                            <StackPanel Margin="0,0,0,18">
+                                <TextBlock Text="ALERGIAS" Foreground="{StaticResource MutedBrush}" FontSize="12" />
+                                <TextBlock Text="{Binding Data.EmergencyProfile.Allergies}" FontSize="15" />
+                            </StackPanel>
+                            <StackPanel Margin="0,0,0,18">
+                                <TextBlock Text="CONDICOES MEDICAS" Foreground="{StaticResource MutedBrush}" FontSize="12" />
+                                <TextBlock Text="{Binding Data.EmergencyProfile.MedicalConditions}" FontSize="15" />
+                            </StackPanel>
+                            <StackPanel Margin="0,0,0,18">
+                                <TextBlock Text="DEFICIENCIAS" Foreground="{StaticResource MutedBrush}" FontSize="12" />
+                                <TextBlock Text="{Binding Data.EmergencyProfile.Disabilities}" FontSize="15" />
+                            </StackPanel>
+                            <StackPanel Margin="0,0,0,18">
+                                <TextBlock Text="NECESSIDADES ESPECIAIS" Foreground="{StaticResource MutedBrush}" FontSize="12" />
+                                <TextBlock Text="{Binding Data.EmergencyProfile.SpecialNeeds}" FontSize="15" />
+                            </StackPanel>
+                            <StackPanel Margin="0,0,0,18">
+                                <TextBlock Text="MEDICAMENTOS" Foreground="{StaticResource MutedBrush}" FontSize="12" />
+                                <TextBlock Text="{Binding EmergencyPublicMedication}" FontSize="15" />
+                            </StackPanel>
+                            <StackPanel Margin="0,0,0,18">
+                                <TextBlock Text="INSTRUCOES PARA EMERGENCIA" Foreground="{StaticResource MutedBrush}" FontSize="12" />
+                                <TextBlock Text="{Binding Data.EmergencyProfile.EmergencyInstructions}" FontSize="15" />
+                            </StackPanel>
+                        </StackPanel>
 
                         <TextBlock Text="CONTATOS ADICIONAIS" Foreground="{StaticResource MutedBrush}" FontSize="12" Margin="0,4,0,8" />
                         <ItemsControl ItemsSource="{Binding Data.EmergencyProfile.ExtraContacts}">
