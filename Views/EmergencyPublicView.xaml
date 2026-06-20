@@ -12,7 +12,7 @@
                 <TextBlock Text="!" Foreground="White" FontSize="24" FontWeight="Bold" Margin="0,0,14,0" />
                 <StackPanel>
                     <TextBlock Text="INFORMACOES DE EMERGENCIA" Foreground="White" FontWeight="Bold" />
-                    <TextBlock Text="Em caso de emergencia, ligue 192 (SAMU) ou 193." Foreground="White" />
+                    <TextBlock Text="Em caso de emergência, ligue 192 (SAMU) ou 193." Foreground="White" />
                 </StackPanel>
             </StackPanel>
         </Border>

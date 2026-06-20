@@ -34,9 +34,9 @@
                 <Border Style="{StaticResource FlatCard}" Margin="0,0,0,16">
                     <StackPanel>
                         <TextBlock Text="URL personalizada" FontWeight="SemiBold" Margin="0,0,0,8" />
-                        <TextBlock Text="Crie a pagina acessivel via NFC ou link com informacoes essenciais da crianca." Style="{StaticResource MutedText}" Margin="0,0,0,14" />
+                        <TextBlock Text="Crie a página acessível via NFC ou link com informações essenciais da criança." Style="{StaticResource MutedText}" Margin="0,0,0,14" />
                         <Button Command="{Binding NavigateCommand}" CommandParameter="{x:Static services:AppPage.CustomUrl}" Style="{StaticResource PrimaryButton}">
-                            <TextBlock Text="URL personalizada    Configurar pagina de emergencia    &gt;" />
+                            <TextBlock Text="URL personalizada    Configurar página de emergência    &gt;" />
                         </Button>
                     </StackPanel>
                 </Border>
@@ -58,8 +58,8 @@
                 <Border Style="{StaticResource FlatCard}" Margin="0,0,0,16">
                     <DockPanel>
                         <StackPanel DockPanel.Dock="Left">
-                            <TextBlock Text="Modo crianca" FontWeight="SemiBold" />
-                            <TextBlock Text="Restringe funcionalidades e oculta dados sensiveis para uso seguro por criancas." Style="{StaticResource MutedText}" />
+                            <TextBlock Text="Modo criança" FontWeight="SemiBold" />
+                            <TextBlock Text="Restringe funcionalidades e oculta dados sensíveis para uso seguro por crianças." Style="{StaticResource MutedText}" />
                         </StackPanel>
                         <CheckBox IsChecked="{Binding Data.Band.ChildMode}" Style="{StaticResource ToggleCheckBox}" HorizontalAlignment="Right" />
                     </DockPanel>
@@ -67,13 +67,13 @@
 
                 <Border Style="{StaticResource FlatCard}" Margin="0,0,0,16">
                     <StackPanel>
-                        <TextBlock Text="Permissoes" FontWeight="SemiBold" Margin="0,0,0,14" />
+                        <TextBlock Text="Permissões" FontWeight="SemiBold" Margin="0,0,0,14" />
                         <DockPanel Margin="0,0,0,12">
-                            <TextBlock Text="Notificacoes" DockPanel.Dock="Left" />
+                            <TextBlock Text="Notificações" DockPanel.Dock="Left" />
                             <CheckBox IsChecked="{Binding Data.Band.NotificationsEnabled}" Style="{StaticResource ToggleCheckBox}" HorizontalAlignment="Right" />
                         </DockPanel>
                         <DockPanel>
-                            <TextBlock Text="Localizacao" DockPanel.Dock="Left" />
+                            <TextBlock Text="Localização" DockPanel.Dock="Left" />
                             <CheckBox IsChecked="{Binding Data.Band.LocationEnabled}" Style="{StaticResource ToggleCheckBox}" HorizontalAlignment="Right" />
                         </DockPanel>
                     </StackPanel>

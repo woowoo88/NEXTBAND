@@ -63,7 +63,7 @@ public sealed class MainViewModel : ViewModelBase
         LogoutCommand = new RelayCommand(() =>
         {
             CurrentPage = AppPage.Login;
-            SetStatus("Voce saiu da conta.");
+            SetStatus("Você saiu da conta.");
         });
 
         _ = LoadAsync();
@@ -188,7 +188,7 @@ public sealed class MainViewModel : ViewModelBase
         }
     }
 
-    public string ConnectionCountText => $"{Data.Connections.Count} conexoes";
+    public string ConnectionCountText => $"{Data.Connections.Count} conexões";
     public string BandStatusText => Data.Band.IsConnected ? "Conectada" : "Desconectada";
     public string DashboardBandStatusText => Data.Band.IsConnected ? "Pulseira conectada" : "Pulseira desconectada";
     public string OledCounterText => $"{Data.Band.OledText.Length}/20";
@@ -292,7 +292,7 @@ public sealed class MainViewModel : ViewModelBase
     {
         if (!_validationService.IsEmail(LoginEmail) || string.IsNullOrWhiteSpace(LoginPassword))
         {
-            SetStatus("Informe um e-mail valido e sua senha.", true);
+            SetStatus("Informe um e-mail válido e sua senha.", true);
             return;
         }
 
@@ -319,25 +319,25 @@ public sealed class MainViewModel : ViewModelBase
 
         if (string.IsNullOrWhiteSpace(RegisterUserName))
         {
-            SetStatus("Informe um nome de usuario.", true);
+            SetStatus("Informe um nome de usuário.", true);
             return;
         }
 
         if (!_validationService.IsBrazilianPhone(RegisterPhone))
         {
-            SetStatus("Informe um celular brasileiro valido.", true);
+            SetStatus("Informe um celular brasileiro válido.", true);
             return;
         }
 
         if (!_validationService.IsEmail(RegisterEmail))
         {
-            SetStatus("Informe um e-mail valido.", true);
+            SetStatus("Informe um e-mail válido.", true);
             return;
         }
 
         if (!IsRegisterConfirmPasswordValid)
         {
-            SetStatus("A senha precisa ter no minimo 6 caracteres, pelo menos 1 letra, 1 numero, e a confirmacao deve ser igual.", true);
+            SetStatus("A senha precisa ter no mínimo 6 caracteres, pelo menos 1 letra, 1 número, e a confirmação deve ser igual.", true);
             return;
         }
 
@@ -353,7 +353,7 @@ public sealed class MainViewModel : ViewModelBase
     {
         if (!_validationService.IsEmail(Data.User.Email) || string.IsNullOrWhiteSpace(Data.User.UserName))
         {
-            SetStatus("Revise o e-mail e o nome de usuario.", true);
+            SetStatus("Revise o e-mail e o nome de usuário.", true);
             return;
         }
 
@@ -383,7 +383,7 @@ public sealed class MainViewModel : ViewModelBase
         Data.Band.DeviceName = selected;
         SetStatus(Data.Band.IsConnected
             ? "Pulseira conectada com sucesso."
-            : "Nao foi possivel conectar. Tente novamente.",
+            : "Não foi possível conectar. Tente novamente.",
             !Data.Band.IsConnected);
     }
 
@@ -405,7 +405,7 @@ public sealed class MainViewModel : ViewModelBase
     {
         if (string.IsNullOrWhiteSpace(Data.EmergencyProfile.ChildName))
         {
-            SetStatus("Informe o nome da crianca.", true);
+            SetStatus("Informe o nome da criança.", true);
             return;
         }
 
@@ -416,7 +416,7 @@ public sealed class MainViewModel : ViewModelBase
         }
 
         await _storageService.SaveAsync(Data);
-        SetStatus("Informacoes de emergencia salvas.");
+        SetStatus("Informações de emergência salvas.");
         OnPropertyChanged(nameof(EmergencyUrl));
     }
 
@@ -442,8 +442,8 @@ public sealed class MainViewModel : ViewModelBase
     private void AddGuardian()
     {
         Data.EmergencyProfile.Guardians = string.IsNullOrWhiteSpace(Data.EmergencyProfile.Guardians)
-            ? "Novo responsavel"
-            : $"{Data.EmergencyProfile.Guardians} e Novo responsavel";
+            ? "Novo responsável"
+            : $"{Data.EmergencyProfile.Guardians} e Novo responsável";
     }
 
     private static string NormalizeHex(string value)

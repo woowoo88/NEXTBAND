@@ -23,7 +23,7 @@
 
                     <TextBlock Text="Nome completo" Style="{StaticResource LabelText}" />
                     <TextBox Text="{Binding Data.User.FullName, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,18" />
-                    <TextBlock Text="Nome de usuario" Style="{StaticResource LabelText}" />
+                    <TextBlock Text="Nome de usuário" Style="{StaticResource LabelText}" />
                     <TextBox Text="{Binding Data.User.UserName, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,18" />
                     <TextBlock Text="Email" Style="{StaticResource LabelText}" />
                     <TextBox Text="{Binding Data.User.Email, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,18" />
@@ -33,7 +33,7 @@
                     <TextBox Text="{Binding Data.User.Instagram, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,18" />
                     <TextBlock Text="LinkedIn" Style="{StaticResource LabelText}" />
                     <TextBox Text="{Binding Data.User.LinkedIn, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,18" />
-                    <TextBlock Text="Afiliacao" Style="{StaticResource LabelText}" />
+                    <TextBlock Text="Afiliação" Style="{StaticResource LabelText}" />
                     <TextBox Text="{Binding Data.User.Affiliation, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,18" />
                     <TextBlock Text="Idade" Style="{StaticResource LabelText}" />
                     <TextBox Text="{Binding Data.User.Age, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,18" />

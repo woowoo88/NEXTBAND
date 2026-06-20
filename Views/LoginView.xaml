@@ -43,7 +43,7 @@
             <Button Content="Entrar" Command="{Binding LoginCommand}" Style="{StaticResource PrimaryButton}" />
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,24,0,0">
-                <TextBlock Text="Nao tem uma conta? " Foreground="{StaticResource MutedBrush}" VerticalAlignment="Center" />
+                <TextBlock Text="Não tem uma conta? " Foreground="{StaticResource MutedBrush}" VerticalAlignment="Center" />
                 <Button Content="Cadastre-se" Command="{Binding NavigateCommand}" CommandParameter="{x:Static services:AppPage.Register}" Style="{StaticResource LinkButton}" />
             </StackPanel>
         </StackPanel>

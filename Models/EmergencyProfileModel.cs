@@ -12,10 +12,10 @@ public sealed class EmergencyProfileModel : ObservableModel
     private string _address = "ali mesmo que vc ta pensando";
     private string _allergies = "Amendoim";
     private string _medicalConditions = "Asma";
-    private string _disabilities = "Sindrome de Down";
-    private string _specialNeeds = "Atencao Especial";
+    private string _disabilities = "Síndrome de Down";
+    private string _specialNeeds = "Atenção Especial";
     private string _medications = string.Empty;
-    private string _emergencyInstructions = "Em caso de crise, usar inalador. Levar ao hospital mais proximo.";
+    private string _emergencyInstructions = "Em caso de crise, usar inalador. Levar ao hospital mais próximo.";
 
     public string ChildName { get => _childName; set => SetProperty(ref _childName, value); }
     public string Age { get => _age; set => SetProperty(ref _age, value); }

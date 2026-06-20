@@ -11,7 +11,7 @@
                 <Button Content="&lt;" Command="{Binding BackCommand}" Style="{StaticResource LinkButton}" Foreground="White" FontSize="22" Width="44" DockPanel.Dock="Left" />
                 <StackPanel VerticalAlignment="Center" Margin="10,0,0,0">
                     <TextBlock Text="URL personalizada" Style="{StaticResource PageTitle}" />
-                    <TextBlock Text="Pagina acessivel via NFC ou link" Foreground="#E9E7FF" />
+                    <TextBlock Text="Página acessível via NFC ou link" Foreground="#E9E7FF" />
                 </StackPanel>
             </DockPanel>
         </Border>
@@ -21,14 +21,14 @@
                 <Border Style="{StaticResource FlatCard}" Margin="0,0,0,16">
                     <StackPanel>
                         <TextBlock Text="Privacidade" FontWeight="SemiBold" Margin="0,0,0,8" />
-                        <TextBlock Text="Os dados ficam armazenados neste dispositivo. Compartilhe o link apenas com pessoas de confianca ou via NFC da pulseira em situacoes de emergencia." Foreground="{StaticResource MutedBrush}" />
+                        <TextBlock Text="Os dados ficam armazenados neste dispositivo. Compartilhe o link apenas com pessoas de confiança ou via NFC da pulseira em situações de emergência." Foreground="{StaticResource MutedBrush}" />
                     </StackPanel>
                 </Border>
 
                 <Border Style="{StaticResource FlatCard}" Margin="0,0,0,16">
                     <StackPanel>
                         <TextBlock Text="Identificacao" FontWeight="SemiBold" FontSize="16" Margin="0,0,0,16" />
-                        <TextBlock Text="Nome da crianca *" Style="{StaticResource LabelText}" />
+                        <TextBlock Text="Nome da criança *" Style="{StaticResource LabelText}" />
                         <TextBox Text="{Binding Data.EmergencyProfile.ChildName, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,18" />
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -64,42 +64,42 @@
                     <StackPanel>
                         <TextBlock Text="Responsaveis e contato" FontWeight="SemiBold" FontSize="16" Margin="0,0,0,16" />
                         <DockPanel Margin="0,0,0,8">
-                            <TextBlock Text="Nome dos responsaveis" Style="{StaticResource LabelText}" DockPanel.Dock="Left" />
+                            <TextBlock Text="Nome dos responsáveis" Style="{StaticResource LabelText}" DockPanel.Dock="Left" />
                             <Button Content="+ Responsavel"
                                     Command="{Binding AddGuardianCommand}"
                                     Style="{StaticResource LinkButton}"
                                     HorizontalAlignment="Right" />
                         </DockPanel>
                         <TextBox Text="{Binding Data.EmergencyProfile.Guardians, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,18" />
-                        <TextBlock Text="Telefone principal de emergencia" Style="{StaticResource LabelText}" />
+                        <TextBlock Text="Telefone principal de emergência" Style="{StaticResource LabelText}" />
                         <TextBox Text="{Binding Data.EmergencyProfile.MainPhone, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,18" />
-                        <TextBlock Text="Endereco" Style="{StaticResource LabelText}" />
+                        <TextBlock Text="Endereço" Style="{StaticResource LabelText}" />
                         <TextBox Text="{Binding Data.EmergencyProfile.Address, UpdateSourceTrigger=PropertyChanged}" Height="62" AcceptsReturn="True" TextWrapping="Wrap" VerticalContentAlignment="Top" />
                     </StackPanel>
                 </Border>
 
                 <Border Style="{StaticResource FlatCard}" Margin="0,0,0,16">
                     <StackPanel>
-                        <TextBlock Text="Saude" FontWeight="SemiBold" FontSize="16" Margin="0,0,0,16" />
+                        <TextBlock Text="Saúde" FontWeight="SemiBold" FontSize="16" Margin="0,0,0,16" />
                         <TextBlock Text="Alergias" Style="{StaticResource LabelText}" />
                         <TextBox Text="{Binding Data.EmergencyProfile.Allergies, UpdateSourceTrigger=PropertyChanged}" Height="62" AcceptsReturn="True" TextWrapping="Wrap" VerticalContentAlignment="Top" Margin="0,0,0,18" />
-                        <TextBlock Text="Condicoes medicas" Style="{StaticResource LabelText}" />
+                        <TextBlock Text="Condições médicas" Style="{StaticResource LabelText}" />
                         <TextBox Text="{Binding Data.EmergencyProfile.MedicalConditions, UpdateSourceTrigger=PropertyChanged}" Height="62" AcceptsReturn="True" TextWrapping="Wrap" VerticalContentAlignment="Top" Margin="0,0,0,18" />
-                        <TextBlock Text="Deficiencias" Style="{StaticResource LabelText}" />
+                        <TextBlock Text="Deficiências" Style="{StaticResource LabelText}" />
                         <TextBox Text="{Binding Data.EmergencyProfile.Disabilities, UpdateSourceTrigger=PropertyChanged}" Height="62" AcceptsReturn="True" TextWrapping="Wrap" VerticalContentAlignment="Top" Margin="0,0,0,18" />
                         <TextBlock Text="Necessidades especiais" Style="{StaticResource LabelText}" />
                         <TextBox Text="{Binding Data.EmergencyProfile.SpecialNeeds, UpdateSourceTrigger=PropertyChanged}" Height="62" AcceptsReturn="True" TextWrapping="Wrap" VerticalContentAlignment="Top" Margin="0,0,0,18" />
                         <TextBlock Text="Medicamentos em uso" Style="{StaticResource LabelText}" />
                         <TextBox Text="{Binding Data.EmergencyProfile.Medications, UpdateSourceTrigger=PropertyChanged}" Height="62" AcceptsReturn="True" TextWrapping="Wrap" VerticalContentAlignment="Top" Margin="0,0,0,18" />
-                        <TextBlock Text="Instrucoes para emergencia" Style="{StaticResource LabelText}" />
+                        <TextBlock Text="Instruções para emergência" Style="{StaticResource LabelText}" />
                         <TextBox Text="{Binding Data.EmergencyProfile.EmergencyInstructions, UpdateSourceTrigger=PropertyChanged}" Height="82" AcceptsReturn="True" TextWrapping="Wrap" VerticalContentAlignment="Top" />
                     </StackPanel>
                 </Border>
 
                 <Border Style="{StaticResource FlatCard}" Margin="0,0,0,16">
                     <StackPanel>
-                        <TextBlock Text="Contatos de emergencia adicionais" FontWeight="SemiBold" FontSize="16" />
-                        <TextBlock Text="Adicione contatos extras de familiares ou pessoas de confianca." Style="{StaticResource MutedText}" Margin="0,8,0,14" />
+                        <TextBlock Text="Contatos de emergência adicionais" FontWeight="SemiBold" FontSize="16" />
+                        <TextBlock Text="Adicione contatos extras de familiares ou pessoas de confiança." Style="{StaticResource MutedText}" Margin="0,8,0,14" />
                         <ItemsControl ItemsSource="{Binding Data.EmergencyProfile.ExtraContacts}" Margin="0,0,0,12">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
@@ -120,7 +120,7 @@
                                                 <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
                                             </StackPanel>
                                             <StackPanel Grid.Column="2">
-                                                <TextBlock Text="Relacao" Style="{StaticResource MutedText}" />
+                                                <TextBlock Text="Relação" Style="{StaticResource MutedText}" />
                                                 <TextBox Text="{Binding Relation, UpdateSourceTrigger=PropertyChanged}" />
                                             </StackPanel>
                                             <StackPanel Grid.Row="2">
@@ -128,7 +128,7 @@
                                                 <TextBox Text="{Binding Phone, UpdateSourceTrigger=PropertyChanged}" />
                                             </StackPanel>
                                             <StackPanel Grid.Row="2" Grid.Column="2">
-                                                <TextBlock Text="Observacao" Style="{StaticResource MutedText}" />
+                                                <TextBlock Text="Observação" Style="{StaticResource MutedText}" />
                                                 <TextBox Text="{Binding Note, UpdateSourceTrigger=PropertyChanged}" />
                                             </StackPanel>
                                         </Grid>
@@ -142,8 +142,8 @@
 
                 <Border Style="{StaticResource FlatCard}" Margin="0,0,0,16">
                     <StackPanel>
-                        <TextBlock Text="Outras informacoes" FontWeight="SemiBold" FontSize="16" />
-                        <TextBlock Text="Adicione qualquer informacao adicional relevante, ex: plano de saude, escola, pediatra." Style="{StaticResource MutedText}" Margin="0,8,0,14" />
+                        <TextBlock Text="Outras informações" FontWeight="SemiBold" FontSize="16" />
+                        <TextBlock Text="Adicione qualquer informação adicional relevante, ex: plano de saúde, escola, pediatra." Style="{StaticResource MutedText}" Margin="0,8,0,14" />
                         <ItemsControl ItemsSource="{Binding Data.EmergencyProfile.CustomInfos}" Margin="0,0,0,12">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
@@ -155,7 +155,7 @@
                                                 <ColumnDefinition />
                                             </Grid.ColumnDefinitions>
                                             <StackPanel>
-                                                <TextBlock Text="Titulo" Style="{StaticResource MutedText}" />
+                                                <TextBlock Text="Título" Style="{StaticResource MutedText}" />
                                                 <TextBox Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}" />
                                             </StackPanel>
                                             <StackPanel Grid.Column="2">
@@ -167,7 +167,7 @@
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
-                        <Button Content="+ Adicionar informacao" Command="{Binding AddCustomInfoCommand}" Style="{StaticResource SecondaryButton}" />
+                        <Button Content="+ Adicionar informação" Command="{Binding AddCustomInfoCommand}" Style="{StaticResource SecondaryButton}" />
                     </StackPanel>
                 </Border>
 

@@ -1,23 +1,23 @@
 # NextBand
 
-Aplicativo desktop desenvolvido em C# WPF para configuracao de uma pulseira inteligente com NFC, Bluetooth, ESP32, LED RGB e display OLED.
+Aplicativo desktop desenvolvido em C# WPF para configuração de uma pulseira inteligente com NFC, Bluetooth, ESP32, LED RGB e display OLED.
 
 ## Funcionalidades
 
-- Login e cadastro de usuario
+- Login e cadastro de usuário
 - Dashboard com perfil e status da pulseira
 - Compartilhamento de perfil via NFC
-- Registro de conexoes recentes
-- Tela de conexoes com busca
+- Registro de conexões recentes
+- Tela de conexões com busca
 - Edicao de perfil
 - Configuracao da pulseira NextBand
 - Conexao Bluetooth simulada com ESP32
 - Controle de LED RGB
 - Configuracao do texto do display OLED
 - Link rapido para Instagram, LinkedIn ou URL
-- URL personalizada de emergencia
-- Pagina publica de emergencia infantil
-- Modo crianca
+- URL personalizada de emergência
+- Página pública de emergência infantil
+- Modo criança
 - Controle de permissoes
 - Armazenamento local em JSON
 
@@ -55,7 +55,7 @@ dotnet run
 
 - `Views`: telas XAML do aplicativo.
 - `ViewModels`: comandos, estado e navegacao MVVM.
-- `Models`: dados de usuario, conexoes, pulseira e emergencia.
+- `Models`: dados de usuário, conexões, pulseira e emergência.
 - `Services`: armazenamento local, validacao, NFC e Bluetooth simulado.
 - `Components`: auxiliares reutilizaveis de interface.
 - `Assets`: pasta reservada para icones, imagens e estilos.

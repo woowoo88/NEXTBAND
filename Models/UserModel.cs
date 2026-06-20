@@ -11,7 +11,7 @@ public sealed class UserModel : ObservableModel
     private string _linkedIn = "linkedin.com/in/lucasmendes";
     private string _affiliation = string.Empty;
     private string _age = "25";
-    private string _bio = "Desenvolvedor Full Stack apaixonado por tecnologia, networking e inovacao. Sempre em busca de novas conexoes.";
+    private string _bio = "Desenvolvedor Full Stack apaixonado por tecnologia, networking e inovação. Sempre em busca de novas conexões.";
 
     public string FullName { get => _fullName; set => SetProperty(ref _fullName, value); }
     public string UserName { get => _userName; set => SetProperty(ref _userName, value); }

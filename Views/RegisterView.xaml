@@ -119,9 +119,9 @@
                         </Border.Style>
                     </Border>
                 </Grid>
-                <CheckBox Content="Mostrar confirmacao" IsChecked="{Binding ShowRegisterConfirmPassword}" Checked="ShowRegisterConfirmPasswordChanged" Unchecked="ShowRegisterConfirmPasswordChanged" Foreground="{StaticResource MutedBrush}" Margin="0,0,0,18" />
+                <CheckBox Content="Mostrar confirmação" IsChecked="{Binding ShowRegisterConfirmPassword}" Checked="ShowRegisterConfirmPasswordChanged" Unchecked="ShowRegisterConfirmPasswordChanged" Foreground="{StaticResource MutedBrush}" Margin="0,0,0,18" />
 
-                <TextBlock Text="Nome de usuario" Style="{StaticResource LabelText}" />
+                <TextBlock Text="Nome de usuário" Style="{StaticResource LabelText}" />
                 <TextBox Text="{Binding RegisterUserName, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,20" />
 
                 <Button Content="Criar conta" Command="{Binding RegisterCommand}" Style="{StaticResource PrimaryButton}" />
