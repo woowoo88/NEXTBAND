@@ -73,12 +73,12 @@ public sealed class MainViewModel : ViewModelBase
     public ObservableCollection<string> FoundDevices { get; } = [];
     public ObservableCollection<CountryDialCodeModel> CountryDialCodes { get; } =
     [
-        new() { Flag = "\U0001F1E7\U0001F1F7", Name = "Brasil", DialCode = "+55" },
-        new() { Flag = "\U0001F1FA\U0001F1F8", Name = "Estados Unidos", DialCode = "+1" },
-        new() { Flag = "\U0001F1F5\U0001F1F9", Name = "Portugal", DialCode = "+351" },
-        new() { Flag = "\U0001F1E6\U0001F1F7", Name = "Argentina", DialCode = "+54" },
-        new() { Flag = "\U0001F1FA\U0001F1FE", Name = "Uruguai", DialCode = "+598" },
-        new() { Flag = "\U0001F1F5\U0001F1FE", Name = "Paraguai", DialCode = "+595" }
+        new() { IsoCode = "BR", Flag = "\U0001F1E7\U0001F1F7", Name = "Brasil", DialCode = "+55" },
+        new() { IsoCode = "US", Flag = "\U0001F1FA\U0001F1F8", Name = "Estados Unidos", DialCode = "+1" },
+        new() { IsoCode = "PT", Flag = "\U0001F1F5\U0001F1F9", Name = "Portugal", DialCode = "+351" },
+        new() { IsoCode = "AR", Flag = "\U0001F1E6\U0001F1F7", Name = "Argentina", DialCode = "+54" },
+        new() { IsoCode = "UY", Flag = "\U0001F1FA\U0001F1FE", Name = "Uruguai", DialCode = "+598" },
+        new() { IsoCode = "PY", Flag = "\U0001F1F5\U0001F1FE", Name = "Paraguai", DialCode = "+595" }
     ];
 
     public AppPage CurrentPage
