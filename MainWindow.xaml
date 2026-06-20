@@ -8,15 +8,15 @@
         WindowStartupLocation="CenterScreen"
         WindowState="Maximized">
     <Grid Background="White">
-        <views:LoginView Visibility="{Binding IsLoginVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
-        <views:RegisterView Visibility="{Binding IsRegisterVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
-        <views:DashboardView Visibility="{Binding IsDashboardVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
-        <views:ProfileView Visibility="{Binding IsProfileVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
-        <views:EditProfileView Visibility="{Binding IsEditProfileVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
-        <views:ConnectionsView Visibility="{Binding IsConnectionsVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
-        <views:MyBandView Visibility="{Binding IsMyBandVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
-        <views:CustomUrlView Visibility="{Binding IsCustomUrlVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
-        <views:EmergencyPublicView Visibility="{Binding IsEmergencyPublicVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
+        <views:LoginView Tag="{Binding IsLoginVisible}" />
+        <views:RegisterView Tag="{Binding IsRegisterVisible}" />
+        <views:DashboardView Tag="{Binding IsDashboardVisible}" />
+        <views:ProfileView Tag="{Binding IsProfileVisible}" />
+        <views:EditProfileView Tag="{Binding IsEditProfileVisible}" />
+        <views:ConnectionsView Tag="{Binding IsConnectionsVisible}" />
+        <views:MyBandView Tag="{Binding IsMyBandVisible}" />
+        <views:CustomUrlView Tag="{Binding IsCustomUrlVisible}" />
+        <views:EmergencyPublicView Tag="{Binding IsEmergencyPublicVisible}" />
 
         <Border HorizontalAlignment="Center"
                 VerticalAlignment="Bottom"
