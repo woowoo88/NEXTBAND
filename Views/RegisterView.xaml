@@ -9,8 +9,8 @@
                 <TextBlock Text="NextBand" FontSize="34" FontWeight="Bold" Foreground="{StaticResource BlueBrush}" HorizontalAlignment="Center" />
                 <TextBlock Text="Crie sua conta" Style="{StaticResource MutedText}" HorizontalAlignment="Center" Margin="0,8,0,38" />
 
-                <TextBlock Text="Nome de usuario" Style="{StaticResource LabelText}" />
-                <TextBox Text="{Binding RegisterUserName, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,20" />
+                <TextBlock Text="Nome completo" Style="{StaticResource LabelText}" />
+                <TextBox Text="{Binding RegisterFullName, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,20" />
                 <TextBlock Text="Celular" Style="{StaticResource LabelText}" />
                 <Grid Margin="0,0,0,20">
                     <Grid.ColumnDefinitions>
@@ -40,7 +40,7 @@
                 <TextBox Text="{Binding RegisterEmail, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,20" />
                 <TextBlock Text="Senha" Style="{StaticResource LabelText}" />
                 <Grid Margin="0,0,0,20">
-                    <PasswordBox components:PasswordBoxAssistant.BoundPassword="{Binding RegisterPassword, Mode=TwoWay}" Padding="14,9,44,9">
+                    <PasswordBox x:Name="RegisterPasswordBox" components:PasswordBoxAssistant.BoundPassword="{Binding RegisterPassword, Mode=TwoWay}" Padding="14,9,44,9">
                         <PasswordBox.Style>
                             <Style TargetType="{x:Type PasswordBox}" BasedOn="{StaticResource {x:Type PasswordBox}}">
                                 <Setter Property="Visibility" Value="Visible" />
@@ -52,7 +52,7 @@
                             </Style>
                         </PasswordBox.Style>
                     </PasswordBox>
-                    <TextBox Text="{Binding RegisterPassword, UpdateSourceTrigger=PropertyChanged}" Padding="14,9,44,9">
+                    <TextBox x:Name="RegisterPasswordTextBox" Text="{Binding RegisterPassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Padding="14,9,44,9">
                         <TextBox.Style>
                             <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
                                 <Setter Property="Visibility" Value="Collapsed" />
@@ -78,10 +78,10 @@
                         </Border.Style>
                     </Border>
                 </Grid>
-                <CheckBox Content="Mostrar senha" IsChecked="{Binding ShowRegisterPassword}" Foreground="{StaticResource MutedBrush}" Margin="0,0,0,14" />
+                <CheckBox Content="Mostrar senha" IsChecked="{Binding ShowRegisterPassword}" Checked="ShowRegisterPasswordChanged" Unchecked="ShowRegisterPasswordChanged" Foreground="{StaticResource MutedBrush}" Margin="0,0,0,14" />
                 <TextBlock Text="Confirmar senha" Style="{StaticResource LabelText}" />
                 <Grid Margin="0,0,0,24">
-                    <PasswordBox components:PasswordBoxAssistant.BoundPassword="{Binding RegisterConfirmPassword, Mode=TwoWay}" Padding="14,9,44,9">
+                    <PasswordBox x:Name="RegisterConfirmPasswordBox" components:PasswordBoxAssistant.BoundPassword="{Binding RegisterConfirmPassword, Mode=TwoWay}" Padding="14,9,44,9">
                         <PasswordBox.Style>
                             <Style TargetType="{x:Type PasswordBox}" BasedOn="{StaticResource {x:Type PasswordBox}}">
                                 <Setter Property="Visibility" Value="Visible" />
@@ -93,7 +93,7 @@
                             </Style>
                         </PasswordBox.Style>
                     </PasswordBox>
-                    <TextBox Text="{Binding RegisterConfirmPassword, UpdateSourceTrigger=PropertyChanged}" Padding="14,9,44,9">
+                    <TextBox x:Name="RegisterConfirmPasswordTextBox" Text="{Binding RegisterConfirmPassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Padding="14,9,44,9">
                         <TextBox.Style>
                             <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
                                 <Setter Property="Visibility" Value="Collapsed" />
@@ -119,7 +119,10 @@
                         </Border.Style>
                     </Border>
                 </Grid>
-                <CheckBox Content="Mostrar confirmacao" IsChecked="{Binding ShowRegisterConfirmPassword}" Foreground="{StaticResource MutedBrush}" Margin="0,0,0,18" />
+                <CheckBox Content="Mostrar confirmacao" IsChecked="{Binding ShowRegisterConfirmPassword}" Checked="ShowRegisterConfirmPasswordChanged" Unchecked="ShowRegisterConfirmPasswordChanged" Foreground="{StaticResource MutedBrush}" Margin="0,0,0,18" />
+
+                <TextBlock Text="Nome de usuario" Style="{StaticResource LabelText}" />
+                <TextBox Text="{Binding RegisterUserName, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,20" />
 
                 <Button Content="Criar conta" Command="{Binding RegisterCommand}" Style="{StaticResource PrimaryButton}" />
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,24,0,0">

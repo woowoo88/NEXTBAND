@@ -8,4 +8,10 @@ public partial class LoginView : UserControl
     {
         InitializeComponent();
     }
+
+    private void ShowLoginPasswordChanged(object sender, System.Windows.RoutedEventArgs e)
+    {
+        LoginPasswordTextBox.Text = LoginPasswordBox.Password;
+        LoginPasswordBox.Password = LoginPasswordTextBox.Text;
+    }
 }

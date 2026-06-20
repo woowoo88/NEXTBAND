@@ -16,6 +16,7 @@ public sealed class MainViewModel : ViewModelBase
     private AppPage _currentPage = AppPage.Login;
     private string _loginEmail = string.Empty;
     private string _loginPassword = string.Empty;
+    private string _registerFullName = string.Empty;
     private string _registerUserName = string.Empty;
     private string _registerPhone = string.Empty;
     private string _registerEmail = string.Empty;
@@ -103,6 +104,7 @@ public sealed class MainViewModel : ViewModelBase
     public string LoginEmail { get => _loginEmail; set => SetProperty(ref _loginEmail, value); }
     public string LoginPassword { get => _loginPassword; set => SetProperty(ref _loginPassword, value); }
     public bool ShowLoginPassword { get => _showLoginPassword; set => SetProperty(ref _showLoginPassword, value); }
+    public string RegisterFullName { get => _registerFullName; set => SetProperty(ref _registerFullName, value); }
     public string RegisterUserName { get => _registerUserName; set => SetProperty(ref _registerUserName, value); }
     public string RegisterPhone
     {
@@ -309,6 +311,12 @@ public sealed class MainViewModel : ViewModelBase
 
     private async void Register()
     {
+        if (string.IsNullOrWhiteSpace(RegisterFullName))
+        {
+            SetStatus("Informe seu nome completo.", true);
+            return;
+        }
+
         if (string.IsNullOrWhiteSpace(RegisterUserName))
         {
             SetStatus("Informe um nome de usuario.", true);
@@ -333,12 +341,9 @@ public sealed class MainViewModel : ViewModelBase
             return;
         }
 
-        Data.User.UserName = RegisterUserName.TrimStart('@');
-        Data.User.FullName = RegisterUserName.Trim();
-        Data.User.Phone = $"{SelectedDialCode.DialCode} {RegisterPhone}".Trim();
-        Data.User.Email = RegisterEmail;
-        Data.User.Password = RegisterPassword;
-        Data.Band.OledText = $"@{Data.User.UserName}";
+        Data = CreateCleanAccountData();
+        WireDataNotifications();
+        RefreshAll();
         await _storageService.SaveAsync(Data);
         CurrentPage = AppPage.Dashboard;
         SetStatus("Conta criada com sucesso.");
@@ -455,6 +460,50 @@ public sealed class MainViewModel : ViewModelBase
     {
         IsStatusError = isError;
         StatusMessage = message;
+    }
+
+    private AppDataModel CreateCleanAccountData()
+    {
+        var userName = RegisterUserName.Trim().TrimStart('@');
+        var data = new AppDataModel();
+        data.Connections.Clear();
+
+        data.User.FullName = RegisterFullName.Trim();
+        data.User.UserName = userName;
+        data.User.Phone = $"{SelectedDialCode.DialCode} {RegisterPhone}".Trim();
+        data.User.Email = RegisterEmail.Trim();
+        data.User.Password = RegisterPassword;
+        data.User.Instagram = string.Empty;
+        data.User.LinkedIn = string.Empty;
+        data.User.Affiliation = string.Empty;
+        data.User.Age = string.Empty;
+        data.User.Bio = string.Empty;
+
+        data.Band.DeviceName = "ESP32";
+        data.Band.IsConnected = false;
+        data.Band.OledText = string.IsNullOrWhiteSpace(userName) ? string.Empty : $"@{userName}";
+        data.Band.QuickLink = string.Empty;
+        data.Band.QuickLinkType = "URL";
+        data.Band.ChildMode = false;
+        data.Band.NotificationsEnabled = false;
+        data.Band.LocationEnabled = false;
+
+        data.EmergencyProfile.ChildName = string.Empty;
+        data.EmergencyProfile.Age = string.Empty;
+        data.EmergencyProfile.BloodType = string.Empty;
+        data.EmergencyProfile.Guardians = string.Empty;
+        data.EmergencyProfile.MainPhone = string.Empty;
+        data.EmergencyProfile.Address = string.Empty;
+        data.EmergencyProfile.Allergies = string.Empty;
+        data.EmergencyProfile.MedicalConditions = string.Empty;
+        data.EmergencyProfile.Disabilities = string.Empty;
+        data.EmergencyProfile.SpecialNeeds = string.Empty;
+        data.EmergencyProfile.Medications = string.Empty;
+        data.EmergencyProfile.EmergencyInstructions = string.Empty;
+        data.EmergencyProfile.ExtraContacts.Clear();
+        data.EmergencyProfile.CustomInfos.Clear();
+
+        return data;
     }
 
     private static bool HasValidPasswordRules(string value)

@@ -13,7 +13,7 @@
 
             <TextBlock Text="Senha" Style="{StaticResource LabelText}" />
             <Grid Margin="0,0,0,10">
-                <PasswordBox components:PasswordBoxAssistant.BoundPassword="{Binding LoginPassword, Mode=TwoWay}">
+                <PasswordBox x:Name="LoginPasswordBox" components:PasswordBoxAssistant.BoundPassword="{Binding LoginPassword, Mode=TwoWay}">
                     <PasswordBox.Style>
                         <Style TargetType="{x:Type PasswordBox}" BasedOn="{StaticResource {x:Type PasswordBox}}">
                             <Setter Property="Visibility" Value="Visible" />
@@ -25,7 +25,7 @@
                         </Style>
                     </PasswordBox.Style>
                 </PasswordBox>
-                <TextBox Text="{Binding LoginPassword, UpdateSourceTrigger=PropertyChanged}">
+                <TextBox x:Name="LoginPasswordTextBox" Text="{Binding LoginPassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                     <TextBox.Style>
                         <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
                             <Setter Property="Visibility" Value="Collapsed" />
@@ -38,7 +38,7 @@
                     </TextBox.Style>
                 </TextBox>
             </Grid>
-            <CheckBox Content="Mostrar senha" IsChecked="{Binding ShowLoginPassword}" Foreground="{StaticResource MutedBrush}" Margin="0,0,0,24" />
+            <CheckBox Content="Mostrar senha" IsChecked="{Binding ShowLoginPassword}" Checked="ShowLoginPasswordChanged" Unchecked="ShowLoginPasswordChanged" Foreground="{StaticResource MutedBrush}" Margin="0,0,0,24" />
 
             <Button Content="Entrar" Command="{Binding LoginCommand}" Style="{StaticResource PrimaryButton}" />
 
